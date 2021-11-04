@@ -1,0 +1,151 @@
+.body-monthly {
+  display: flex;
+  justify-content: center;
+}
+
+.card-monthly {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: fit-content;
+  background: var(--gradient-color);
+  border: 1px solid var(--border-color);
+  border-radius: 30px;
+  margin: 50px;
+  filter: drop-shadow(5px 5px 4px #2e3138);
+}
+
+.planner {
+  display: flex;
+  flex-direction: column;
+  background: var(--gradient-color);
+  border: 1px solid var(--border-color);
+  border-radius: 30px;
+  height: 280px;
+  margin: 50px 20px;
+  padding: 1em 2em;
+  filter: drop-shadow(5px 5px 4px #2e3138);
+}
+
+.planner-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.planner input {
+  border: none;
+  border-radius: 5px;
+  color: var(--white-color);
+  transition: 0.3s ease;
+  background-color: rgba(239, 239, 239, 0.3);
+}
+
+.planner label {
+  text-align: left;
+  margin-top: 10px;
+  font-weight: 800;
+  color: var(--white-color);
+}
+
+.planner button {
+  margin-top: 10px;
+  text-decoration: none;
+  background-color: var(--green-color);
+  filter: drop-shadow(5px 5px 4px #2e3138);
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  border-radius: 10px;
+  color: var(--white-color);
+  letter-spacing: 2px;
+  font-weight: normal;
+  transition: 0.3s ease;
+  width: 50%;
+}
+
+.planner button:hover {
+  background-color: #397a53;
+  cursor: pointer;
+}
+
+.expenses {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 500px;
+  max-height: 900px;
+  gap: 0.5em;
+  padding: 1em 2em;
+  background: var(--gradient-color);
+  border: 1px solid var(--border-color);
+  border-radius: 30px;
+  margin: 50px 20px;
+  overflow: auto;
+  filter: drop-shadow(5px 5px 4px #2e3138);
+}
+
+.expenses h2 {
+  color: var(--white-color);
+}
+
+.table {
+  display: table;
+  text-indent: initial;
+  border-spacing: 2px;
+  border-color: grey;
+  border-collapse: collapse;
+  width: 100%;
+  text-align: left;
+}
+
+thead {
+  display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
+
+.table thead th {
+  border-bottom: 2px solid darkgrey;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  border-top: 1px solid darkgrey;
+  color: var(--white-color);
+}
+
+.add-expense {
+  margin-top: 10px;
+  text-decoration: none;
+  background-color: var(--green-color);
+  filter: drop-shadow(5px 5px 4px #2e3138);
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  border-radius: 10px;
+  color: var(--white-color);
+  letter-spacing: 2px;
+  font-weight: normal;
+  transition: 0.3s ease;
+}
+
+.add-expense:hover {
+  background-color: #397a53;
+  cursor: pointer;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  height: 70px;
+  align-items: center;
+}
+
+.link-2 {
+  background-color: wheat;
+}
