@@ -84,27 +84,32 @@ const Monthly = () => {
 
   //Delete item
   const deleteItem = (id) => {
-    fetch(`http://localhost:5000/plan/expense/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        if (responseData.success) {
-          successNotification(responseData.message);
-          expenses.filter(() => {
-            const arr = expenses.filter(
-              (expense) => expense.id !== responseData.expense
-            );
-            setExpenses(arr);
-          });
-        } else {
-          errorNotification(responseData.message);
-        }
-      });
+    var dialogBox = window.confirm("Do you want to delete your expense?");
+    if (dialogBox == true) {
+      fetch(`http://localhost:5000/plan/expense/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((responseData) => {
+          if (responseData.success) {
+            successNotification(responseData.message);
+            expenses.filter(() => {
+              const arr = expenses.filter(
+                (expense) => expense.id !== responseData.expense
+              );
+              setExpenses(arr);
+            });
+          } else {
+            errorNotification(responseData.message);
+          }
+        });
+    } else {
+      return false;
+    }
   };
 
   return (
