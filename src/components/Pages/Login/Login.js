@@ -42,7 +42,7 @@ const Login = () => {
           saveToken(responseData);
           successNotification(responseData.message);
           setTimeout(() => {
-            history.push("/monthly/1");
+            history.push("/");
           }, 2100);
         } else {
           errorNotification(responseData.message);

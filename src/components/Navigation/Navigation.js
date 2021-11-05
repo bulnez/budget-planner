@@ -10,8 +10,13 @@ const Navigation = () => {
   let history = useHistory();
 
   const logout = () => {
-    localStorage.removeItem("userDetails");
-    history.push("/login");
+    const dialogBox = window.confirm("Are you sure you want to logout?");
+    if (dialogBox == true) {
+      localStorage.removeItem("userDetails");
+      history.push("/");
+    } else {
+      return false;
+    }
   };
 
   return (
