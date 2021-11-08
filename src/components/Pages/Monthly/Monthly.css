@@ -33,14 +33,6 @@
   gap: 0.5em;
 }
 
-.planner input {
-  border: none;
-  border-radius: 5px;
-  color: var(--white-color);
-  transition: 0.3s ease;
-  background-color: rgba(239, 239, 239, 0.3);
-}
-
 .planner label {
   text-align: left;
   margin-top: 10px;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navigation from "../../Navigation/Navigation";
 import Classes from "../Monthly/Monthly.css";
 import AddExpense from "../Add Expense/Add";
+import Plan from "./Plan";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Item from "../../UI/Table/Items";
 import {
@@ -11,10 +12,19 @@ import {
 
 const Monthly = () => {
   const [expenses, setExpenses] = useState([]);
-  const [money, setMoney] = useState({ income: 0, budget: 0 });
   let token = JSON.parse(localStorage.userDetails).token;
   let url = window.location.href;
   const month = url.split("/").pop();
+
+  const errorNotification = (errorMsg) =>
+    NotificationManager.error(errorMsg, "Oh, no", 1000, () => {
+      alert("callback");
+    });
+
+  const successNotification = (successMsg) =>
+    NotificationManager.success(successMsg, "Good job!", 1000, () => {
+      alert("callback");
+    });
 
   const monthsOfYear = [
     "January",
@@ -32,41 +42,6 @@ const Monthly = () => {
   ];
 
   let currentMonth = monthsOfYear[month - 1];
-
-  Object.keys(money).forEach((e) => {
-    money[e] = parseInt(money[e]);
-  });
-
-  const errorNotification = (errorMsg) =>
-    NotificationManager.error(errorMsg, "Oh, no", 1000, () => {
-      alert("callback");
-    });
-
-  const successNotification = (successMsg) =>
-    NotificationManager.success(successMsg, "Good job!", 1000, () => {
-      alert("callback");
-    });
-
-  //Posting balance and budget
-  const postData = (e) => {
-    e.preventDefault();
-    fetch(`http://localhost:5000/plan/2017/${month}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `bearer ${token}`,
-      },
-      body: JSON.stringify(money),
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        if (responseData.success) {
-          successNotification(responseData.message);
-        } else {
-          errorNotification(responseData.message);
-        }
-      });
-  };
 
   //Getting expenses
   useEffect(() => {
@@ -117,24 +92,7 @@ const Monthly = () => {
       <Navigation></Navigation>
       <h1>Monthly balance</h1>
       <div className="body-monthly">
-        <div className="planner">
-          <h1>Planner</h1>
-          <form onSubmit={postData} className="planner-form">
-            <label>Income</label>
-            <input
-              type="number"
-              onChange={(e) => setMoney({ ...money, income: e.target.value })}
-              value={money.income}
-            />
-            <label>Budget:</label>
-            <input
-              type="number"
-              onChange={(e) => setMoney({ ...money, budget: e.target.value })}
-              value={money.budget}
-            />
-            <button type="submit">Save</button>
-          </form>
-        </div>
+        <Plan></Plan>
         <div className="expenses">
           <h1> {currentMonth} 2017</h1>
           <div className="row">
