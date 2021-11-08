@@ -11,10 +11,14 @@ import {
 } from "react-notifications";
 
 const Monthly = () => {
+  const [balance, setBalance] = useState(0);
+
   const [expenses, setExpenses] = useState([]);
+  const [total, setTotal] = useState(0);
   let token = JSON.parse(localStorage.userDetails).token;
   let url = window.location.href;
   const month = url.split("/").pop();
+  let totalAmount = 0;
 
   const errorNotification = (errorMsg) =>
     NotificationManager.error(errorMsg, "Oh, no", 1000, () => {
@@ -57,6 +61,17 @@ const Monthly = () => {
       .catch((error) => console.log(error.message));
   }, []);
 
+  useEffect(() => {
+    if (expenses.length > 0) {
+      expenses.forEach((expense) => {
+        totalAmount += expense.amount;
+        setTotal(totalAmount);
+      });
+    } else {
+      setTotal(0);
+    }
+  }, [expenses]);
+
   //Delete item
   const deleteItem = (id) => {
     var dialogBox = window.confirm("Do you want to delete your expense?");
@@ -87,6 +102,20 @@ const Monthly = () => {
     }
   };
 
+  //Getting the balance
+  useEffect(() => {
+    fetch(`http://localhost:5000/plan/2017`, {
+      method: "GET",
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        setBalance(responseData[month].balance);
+      });
+  }, [expenses]);
+
   return (
     <div>
       <Navigation></Navigation>
@@ -109,9 +138,10 @@ const Monthly = () => {
           <table className="table">
             <thead>
               <th>Name</th>
-              <th>Category</th>
               <th>Cost</th>
+              <th>Category</th>
               <th>Payment date</th>
+              <th></th>
             </thead>
             <tbody>
               {expenses.map((el) => (
@@ -126,6 +156,11 @@ const Monthly = () => {
                   }}
                 />
               ))}
+              <th>Total spent:</th>
+              <th>{total}</th>
+              <th></th>
+              <th>Balance:</th>
+              <th>{balance}</th>
             </tbody>
           </table>
         </div>

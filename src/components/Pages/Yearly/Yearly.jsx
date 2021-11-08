@@ -30,6 +30,7 @@ const Yearly = () => {
     })
       .then((response) => response.json())
       .then((responseData) => {
+        console.log(responseData);
         const keys = Object.values(responseData);
         const newKeys = keys.map((el, i) => ({
           ...el,
