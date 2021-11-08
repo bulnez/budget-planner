@@ -12,7 +12,9 @@ const Card = (props) => {
       <label>Budget:</label>
       <input name="budget" placeholder={props.budget} disabled></input>
       <label>Balance:</label>
-      <input name="budget" placeholder={props.balance} disabled></input>
+      <input name="balance" placeholder={props.balance} disabled></input>
+      <label>Expenses:</label>
+      <input name="expenses" placeholder={props.expenses} disabled></input>
       <Link
         to={{
           pathname: `/monthly/${props.id}`,

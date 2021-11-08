@@ -34,10 +34,12 @@ const Yearly = () => {
         const keys = Object.values(responseData);
         const newKeys = keys.map((el, i) => ({
           ...el,
+          expenses: el.budget - el.balance,
           month: monthsOfYear[i],
           year: 2017,
           id: i + 1,
         }));
+        console.log(newKeys);
         setMonths(newKeys);
       })
       .catch((error) => console.log(error.message));
@@ -55,6 +57,7 @@ const Yearly = () => {
             budget={el.budget}
             balance={el.balance}
             id={el.id}
+            expenses={el.expenses}
           ></Card>
         ))}
       </div>
