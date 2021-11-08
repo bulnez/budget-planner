@@ -39,7 +39,7 @@ const AddExpense = () => {
       }
     });
 
-    fetch(`http://localhost:5000/plan/2017/${month}/expense`, {
+    fetch(`http://localhost:5000/plan/2021/${month}/expense`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,6 +50,7 @@ const AddExpense = () => {
       .then((response) => response.json())
       .then((responseData) => {
         if (responseData.success) {
+          console.log(responseData);
           successNotification(responseData.message);
           setTimeout(() => {
             history.push(`/monthly/${month}`);

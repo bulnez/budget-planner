@@ -49,18 +49,20 @@ const Monthly = () => {
 
   //Getting expenses
   useEffect(() => {
-    fetch(`http://localhost:5000/plan/2017/${month}`, {
+    fetch(`http://localhost:5000/plan/2021/${month}`, {
       method: "GET",
       headers: { Authorization: `bearer ${token}` },
     })
       .then((response) => response.json())
       .then((responseData) => {
+        console.log(responseData);
         const allExpenses = responseData.expenses;
         setExpenses(allExpenses);
       })
       .catch((error) => console.log(error.message));
   }, []);
 
+  //Set total
   useEffect(() => {
     if (expenses.length > 0) {
       expenses.forEach((expense) => {
@@ -104,7 +106,7 @@ const Monthly = () => {
 
   //Getting the balance
   useEffect(() => {
-    fetch(`http://localhost:5000/plan/2017`, {
+    fetch(`http://localhost:5000/plan/2021`, {
       method: "GET",
       headers: {
         Authorization: `bearer ${token}`,
@@ -123,7 +125,7 @@ const Monthly = () => {
       <div className="body-monthly">
         <Plan></Plan>
         <div className="expenses">
-          <h1> {currentMonth} 2017</h1>
+          <h1> {currentMonth} 2021</h1>
           <div className="row">
             <h2>Expenses</h2>
             <Link

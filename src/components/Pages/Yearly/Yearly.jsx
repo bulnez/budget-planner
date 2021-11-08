@@ -24,7 +24,7 @@ const Yearly = () => {
   let token = JSON.parse(localStorage.userDetails).token;
 
   useEffect(() => {
-    fetch("http://localhost:5000/plan/2017", {
+    fetch("http://localhost:5000/plan/2021", {
       method: "GET",
       headers: { Authorization: `bearer ${token}` },
     })
@@ -36,7 +36,7 @@ const Yearly = () => {
           ...el,
           expenses: el.budget - el.balance,
           month: monthsOfYear[i],
-          year: 2017,
+          year: 2021,
           id: i + 1,
         }));
         console.log(newKeys);
