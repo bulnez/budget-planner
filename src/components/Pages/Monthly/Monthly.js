@@ -9,10 +9,17 @@ import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
+import styled, { css } from "styled-components";
+
+const Th = styled.th`
+  :hover {
+    cursor: pointer;
+  }
+`;
 
 const Monthly = () => {
   const [balance, setBalance] = useState(0);
-
+  const [sort, setSort] = useState(false);
   const [expenses, setExpenses] = useState([]);
   const [total, setTotal] = useState(0);
   let token = JSON.parse(localStorage.userDetails).token;
@@ -55,7 +62,6 @@ const Monthly = () => {
     })
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData);
         const allExpenses = responseData.expenses;
         setExpenses(allExpenses);
       })
@@ -118,6 +124,23 @@ const Monthly = () => {
       });
   }, [expenses]);
 
+  //Sort by amount
+  const sortExpenses = () => {
+    const sortedExpenses = [...expenses].sort((a, b) => {
+      return a.amount - b.amount;
+    });
+    setExpenses(sortedExpenses);
+    console.log(expenses);
+  };
+
+  const sortExpenses2 = () => {
+    const sortedExpenses = [...expenses].sort((a, b) => {
+      return b.amount - a.amount;
+    });
+    setExpenses(sortedExpenses);
+    console.log(expenses);
+  };
+
   return (
     <div>
       <Navigation></Navigation>
@@ -140,7 +163,19 @@ const Monthly = () => {
           <table className="table">
             <thead>
               <th>Name</th>
-              <th>Cost</th>
+              <Th
+                onClick={() => {
+                  if (sort) {
+                    sortExpenses2();
+                    setSort(false);
+                  } else {
+                    sortExpenses();
+                    setSort(true);
+                  }
+                }}
+              >
+                Cost
+              </Th>
               <th>Category</th>
               <th>Payment date</th>
               <th></th>

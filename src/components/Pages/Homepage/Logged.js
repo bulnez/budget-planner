@@ -12,7 +12,7 @@ const Logged = () => {
         <Link
           className="link-button"
           to={{
-            pathname: `/yearly/2017`,
+            pathname: `/yearly/2021`,
           }}
         >
           Yearly balance
