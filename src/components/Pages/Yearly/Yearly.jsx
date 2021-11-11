@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navigation from "../../Navigation/Navigation";
 import Card from "../../UI/Card/Card";
-import Classes from "../Yearly/Yearly.css";
+import styles from "../../Styles/Yearly.module.css";
 
 const monthsOfYear = [
   "January",
@@ -48,8 +48,8 @@ const Yearly = () => {
   return (
     <div>
       <Navigation></Navigation>
-      <h1>Yearly Balance</h1>
-      <div className="yearly">
+      <h1 className={styles.heading}>Yearly Balance</h1>
+      <div className={styles.yearlyContainer}>
         {months.map((el) => (
           <Card
             month={el.month}

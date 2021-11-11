@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navigation from "../../Navigation/Navigation";
-import Classes from "../Add Expense/Add.css";
+import styles from "../../Styles/Add.module.css";
 import {
   NotificationContainer,
   NotificationManager,
@@ -12,7 +12,7 @@ const AddExpense = () => {
   let history = useHistory();
   let token = JSON.parse(localStorage.userDetails).token;
   let url = window.location.href;
-  const month = url.charAt(url.length - 1);
+  const month = url.split("/").pop();
 
   const errorNotification = (errorMsg) =>
     NotificationManager.error(errorMsg, "Something went wrong", 2000, () => {
@@ -70,10 +70,10 @@ const AddExpense = () => {
   return (
     <div>
       <Navigation></Navigation>
-      <div className="container">
+      <div className={styles.container}>
         <h1>Add Expenses</h1>
-        <div className="add-container">
-          <form onSubmit={postExpense} className="add-form">
+        <div className={styles.addContainer}>
+          <form onSubmit={postExpense} className={styles.addForm}>
             <h3>Add a new expense</h3>
             <label>Name:</label>
             <input

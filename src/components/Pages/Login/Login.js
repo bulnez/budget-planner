@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import Navigation from "../../Navigation/Navigation";
-import Classes from "../Login/Login.css";
 import { useHistory } from "react-router-dom";
 import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
+import styles from "../../Styles/Login.module.css";
 
 const Login = () => {
   let history = useHistory();
   const [details, setDetails] = useState({ email: "", password: "" });
-  const [error, setError] = useState("");
 
   const errorNotification = (errorMsg) =>
     NotificationManager.error(errorMsg, "Click to hide", 2000, () => {
@@ -42,7 +41,7 @@ const Login = () => {
           saveToken(responseData);
           successNotification(responseData.message);
           setTimeout(() => {
-            history.push("/");
+            history.push("/dashboard");
           }, 2100);
         } else {
           errorNotification(responseData.message);
@@ -53,10 +52,10 @@ const Login = () => {
   return (
     <div>
       <Navigation></Navigation>
-      <div className="main-container">
+      <div className={styles.mainContainer}>
         <h1>Login</h1>
-        <div className="login-container">
-          <form className="login-form" onSubmit={handleSubmit}>
+        <div className={styles.loginContainer}>
+          <form className={styles.loginForm} onSubmit={handleSubmit}>
             <label for="email">E-mail</label>
             <input
               id="email"

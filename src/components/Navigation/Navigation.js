@@ -19,6 +19,9 @@ const Navigation = () => {
     }
   };
 
+  const d = new Date();
+  let month = d.getMonth();
+
   return (
     <div>
       <div className="navigation">
@@ -38,7 +41,14 @@ const Navigation = () => {
             </Link>
           )}
           {"userDetails" in localStorage ? (
-            <Link to="/monthly/1" className="link">
+            <Link to={`/dashboard`} className="link">
+              Dashboard
+            </Link>
+          ) : (
+            ""
+          )}
+          {"userDetails" in localStorage ? (
+            <Link to={`/monthly/${month + 1}`} className="link">
               Monthly Balance
             </Link>
           ) : (

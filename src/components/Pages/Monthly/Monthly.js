@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navigation from "../../Navigation/Navigation";
-import Classes from "../Monthly/Monthly.css";
+import styles from "../../Styles/Monthly.module.css";
 import AddExpense from "../Add Expense/Add";
 import Plan from "./Plan";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -11,19 +11,6 @@ import {
 } from "react-notifications";
 import styled, { css } from "styled-components";
 import { useHistory } from "react-router-dom";
-
-const Th = styled.th`
-  :hover {
-    cursor: pointer;
-  }
-`;
-
-const Select = styled.select`
-  background-color: grey;
-  color: var(--white-color);
-  height: 25px;
-  width: 150px;
-`;
 
 const Monthly = () => {
   let history = useHistory();
@@ -138,7 +125,7 @@ const Monthly = () => {
       });
   }, [expenses]);
 
-  //Sort by amount
+  //Sort by amount ascending
   const sortExpenses = () => {
     const sortedExpenses = [...expenses].sort((a, b) => {
       return a.amount - b.amount;
@@ -147,6 +134,7 @@ const Monthly = () => {
     console.log(expenses);
   };
 
+  //Sort by amount descending
   const sortExpenses2 = () => {
     const sortedExpenses = [...expenses].sort((a, b) => {
       return b.amount - a.amount;
@@ -156,14 +144,15 @@ const Monthly = () => {
   };
 
   return (
-    <div>
+    <div className={styles.monthlyBody}>
       <Navigation></Navigation>
-      <h1>Monthly balance</h1>
-      <div className="body-monthly">
+      <h1 className={styles.heading}>Monthly balance</h1>
+      <div className={styles.innerBody}>
         <Plan></Plan>
-        <div className="expenses">
+        <div className={styles.expensesCard}>
           <h1> {currentMonth} 2021</h1>
-          <Select
+          <select
+            className={styles.selectMonth}
             defaultValue={month}
             onChange={(e) => selectMonth(e.target.value)}
           >
@@ -179,22 +168,24 @@ const Monthly = () => {
             <option value="10">October</option>
             <option value="11">November</option>
             <option value="12">December</option>
-          </Select>
-          <div className="row">
+          </select>
+          <div className={styles.row}>
             <h2>Expenses</h2>
             <Link
-              className="add-expense"
+              className={styles.addExpense}
               to={{
                 pathname: `/addexpense/${month}`,
               }}
+              disabled
             >
               Add expense
             </Link>
           </div>
-          <table className="table">
+          <table className={styles.tableExpenses}>
             <thead>
               <th>Name</th>
-              <Th
+              <th
+                className={styles.thFilter}
                 onClick={() => {
                   if (sort) {
                     sortExpenses2();
@@ -206,12 +197,12 @@ const Monthly = () => {
                 }}
               >
                 Cost
-              </Th>
+              </th>
               <th>Category</th>
               <th>Payment date</th>
               <th></th>
             </thead>
-            <tbody>
+            <tbody className={styles.expensesBody}>
               {expenses.map((el) => (
                 <Item
                   name={el.name}

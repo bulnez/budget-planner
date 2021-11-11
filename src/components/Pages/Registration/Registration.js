@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Navigation from "../../Navigation/Navigation";
-import classes from "../Registration/Registration.css";
 import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
 import { useHistory } from "react-router-dom";
+import styles from "../../Styles/Register.module.css";
 
 const Registration = () => {
   const [name, setName] = useState("");
@@ -48,10 +48,10 @@ const Registration = () => {
   return (
     <div>
       <Navigation></Navigation>
-      <div className="main-reg-container">
+      <div className={styles.mainContainer}>
         <h1>Registration</h1>
-        <div className="reg-container">
-          <form className="reg-form" onSubmit={handleSubmit}>
+        <div className={styles.regContainer}>
+          <form className={styles.regForm} onSubmit={handleSubmit}>
             <label>Username</label>
             <input
               type="text"
@@ -59,18 +59,14 @@ const Registration = () => {
               onChange={(e) => setName(e.target.value)}
             />{" "}
             <br />
-            <label class="form-control-label" for="new-email">
-              E-mail
-            </label>
+            <label for="new-email">E-mail</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />{" "}
             <br />
-            <label class="form-control-label" for="new-password">
-              Password
-            </label>
+            <label for="new-password">Password</label>
             <input
               type="password"
               value={password}
