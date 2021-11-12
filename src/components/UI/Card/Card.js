@@ -4,8 +4,6 @@ import styles from "../../Styles/Card.module.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const Card = (props) => {
-  localStorage.setItem("month", props.id);
-
   return (
     <div className={styles.card}>
       <h1>{props.month}</h1>

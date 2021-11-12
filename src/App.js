@@ -10,6 +10,7 @@ import { useState } from "react";
 import "react-notifications/lib/notifications.css";
 import Dashboard from "./components/Pages/Dashboard/Dashboard";
 import styles from "../src/components/Styles/Global.module.css";
+import Savings from "./components/Pages/Savings";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/yearly" component={Yearly} />
       <Route path="/addexpense" component={AddExpense} />
       <Route path="/dashboard" component={Dashboard} />
+      <Route path="/savings" component={Savings} />
       <Navigation></Navigation>
     </Switch>
   );
