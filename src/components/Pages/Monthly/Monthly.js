@@ -14,6 +14,7 @@ import { useHistory } from "react-router-dom";
 
 const Monthly = () => {
   let history = useHistory();
+  const [money, setMoney] = useState();
   const [balance, setBalance] = useState(0);
   const [sort, setSort] = useState(false);
   const [expenses, setExpenses] = useState([]);
@@ -125,6 +126,24 @@ const Monthly = () => {
       });
   }, [expenses]);
 
+  //Getting current income and budget data
+  useEffect(() => {
+    fetch(`http://localhost:5000/plan/2021/${month}`, {
+      method: "GET",
+      headers: {
+        Authorization: `bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        if (responseData.budget === 0 && responseData.income === 0) {
+          setMoney(false);
+        } else {
+          setMoney(true);
+        }
+      });
+  }, []);
+
   //Sort by amount ascending
   const sortExpenses = () => {
     const sortedExpenses = [...expenses].sort((a, b) => {
@@ -172,7 +191,7 @@ const Monthly = () => {
           <div className={styles.row}>
             <h2>Expenses</h2>
             <Link
-              className={styles.addExpense}
+              className={money ? styles.addExpense : styles.addExpenseInactive}
               to={{
                 pathname: `/addexpense/${month}`,
               }}
