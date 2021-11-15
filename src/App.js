@@ -1,4 +1,3 @@
-import "./App.css";
 import Navigation from "./components/Navigation/Navigation";
 import Registration from "./components/Pages/Registration/Registration";
 import Login from "./components/Pages/Login/Login";
