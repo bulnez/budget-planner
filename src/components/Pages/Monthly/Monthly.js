@@ -216,6 +216,7 @@ const Monthly = () => {
                 }}
               >
                 Cost
+                {sort ? <p>▲</p> : <p>▼</p>}
               </th>
               <th>Category</th>
               <th>Payment date</th>

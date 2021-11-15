@@ -1,5 +1,5 @@
 import React from "react";
-import Classes from "../Table/Items.css";
+import styles from "../../Styles/Items.module.css";
 
 const Item = (props) => {
   return (
@@ -9,7 +9,7 @@ const Item = (props) => {
       <td>{props.category}</td>
       <td>{props.date}</td>
       <td>
-        <button className="button-delete" onClick={props.delete}>
+        <button className={styles.buttonDelete} onClick={props.delete}>
           Delete
         </button>
       </td>
