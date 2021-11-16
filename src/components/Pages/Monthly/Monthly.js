@@ -195,7 +195,6 @@ const Monthly = () => {
               to={{
                 pathname: `/addexpense/${month}`,
               }}
-              disabled
             >
               Add expense
             </Link>

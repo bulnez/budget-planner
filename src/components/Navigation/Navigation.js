@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const Navigation = () => {
   let history = useHistory();
-
+  let username = JSON.parse(localStorage.userDetails).user.name;
   const logout = () => {
     const dialogBox = window.confirm("Are you sure you want to logout?");
     if (dialogBox == true) {
@@ -68,14 +68,17 @@ const Navigation = () => {
             ""
           )}
         </div>
-        {"userDetails" in localStorage ? (
-          <button onClick={logout} className={styles.logout}>
-            {" "}
-            Logout
-          </button>
-        ) : (
-          ""
-        )}
+        <div className={styles.leftSide}>
+          {"userDetails" in localStorage ? <p>Hello, {username}</p> : ""}
+          {"userDetails" in localStorage ? (
+            <button onClick={logout} className={styles.logout}>
+              {" "}
+              Logout
+            </button>
+          ) : (
+            ""
+          )}
+        </div>
       </div>
     </div>
   );
