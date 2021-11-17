@@ -1,90 +1,48 @@
-import React, { useEffect, useState } from "react";
-import Navigation from "../../Navigation/Navigation";
-import styles from "../../Styles/Monthly.module.css";
-import AddExpense from "../Add Expense/Add";
-import Plan from "./Plan";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Item from "../../UI/Table/Items";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
-import styled, { css } from "styled-components";
+import React, { useState, useMemo } from "react";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import styles from "../../Styles/Monthly.module.css";
+import Navigation from "../../Navigation/Navigation";
+import Plan from "./Plan";
+import Item from "../../UI/Table/Items";
+import { monthsOfYear } from "../../Common/Common";
+import { errorNotification, successNotification } from "../../Common/Common";
 
 const Monthly = () => {
-  let history = useHistory();
-  const [money, setMoney] = useState();
-  const [balance, setBalance] = useState(0);
+  const history = useHistory();
   const [sort, setSort] = useState(false);
-  const [expenses, setExpenses] = useState([]);
-  const [total, setTotal] = useState(0);
-  let token = JSON.parse(localStorage.userDetails).token;
-  let url = window.location.href;
+  const [data, setData] = useState({ budget: 0, balance: 0, expenses: [] });
+  const token = JSON.parse(localStorage.userDetails).token;
+  const url = window.location.href;
   const month = url.split("/").pop();
-  let totalAmount = 0;
+  const currentMonth = monthsOfYear[month - 1];
 
-  const errorNotification = (errorMsg) =>
-    NotificationManager.error(errorMsg, "Oh, no", 1000, () => {
-      alert("callback");
-    });
-
-  const successNotification = (successMsg) =>
-    NotificationManager.success(successMsg, "Good job!", 1000, () => {
-      alert("callback");
-    });
-
-  const monthsOfYear = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  let currentMonth = monthsOfYear[month - 1];
-
+  //Pick a month
   const selectMonth = (value) => {
     history.push(`/monthly/${value}`);
     window.location.reload(false);
   };
 
-  //Getting expenses
-  useEffect(() => {
-    fetch(`http://localhost:5000/plan/2021/${month}`, {
-      method: "GET",
-      headers: { Authorization: `bearer ${token}` },
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        const allExpenses = responseData.expenses;
-        setExpenses(allExpenses);
-      })
-      .catch((error) => console.log(error.message));
-  }, []);
-
   //Set total
-  useEffect(() => {
-    if (expenses.length > 0) {
-      expenses.forEach((expense) => {
-        totalAmount += expense.amount;
-        setTotal(totalAmount);
-      });
+  const total = useMemo(() => {
+    if (data.expenses.length > 0) {
+      const totalExpenses = data.expenses.reduce((acc, expense) => {
+        return acc + expense.amount;
+      }, 0);
+      return totalExpenses;
     } else {
-      setTotal(0);
+      return 0;
     }
-  }, [expenses]);
+  }, [data]);
+
+  //Set balance
+  const balance = useMemo(() => {
+    return data.budget - total;
+  }, [data]);
 
   //Delete item
   const deleteItem = (id) => {
-    var dialogBox = window.confirm("Do you want to delete your expense?");
+    const dialogBox = window.confirm("Do you want to delete your expense?");
     if (dialogBox == true) {
       fetch(`http://localhost:5000/plan/expense/${id}`, {
         method: "DELETE",
@@ -97,77 +55,38 @@ const Monthly = () => {
         .then((responseData) => {
           if (responseData.success) {
             successNotification(responseData.message);
-            expenses.filter(() => {
-              const arr = expenses.filter(
+            data.expenses.filter(() => {
+              const arr = data.expenses.filter(
                 (expense) => expense.id !== responseData.expense
               );
-              setExpenses(arr);
+              setData({ ...data, expenses: arr });
             });
           } else {
             errorNotification(responseData.message);
           }
         });
-    } else {
-      return false;
     }
   };
 
-  //Getting the balance
-  useEffect(() => {
-    fetch(`http://localhost:5000/plan/2021`, {
-      method: "GET",
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        setBalance(responseData[month].balance);
-      });
-  }, [expenses]);
-
-  //Getting current income and budget data
-  useEffect(() => {
-    fetch(`http://localhost:5000/plan/2021/${month}`, {
-      method: "GET",
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        if (responseData.budget === 0 && responseData.income === 0) {
-          setMoney(false);
-        } else {
-          setMoney(true);
-        }
-      });
-  }, []);
-
-  //Sort by amount ascending
+  //Sort by amount
   const sortExpenses = () => {
-    const sortedExpenses = [...expenses].sort((a, b) => {
-      return a.amount - b.amount;
+    const sortedExpenses = [...data.expenses].sort((a, b) => {
+      if (sort) {
+        return a.amount - b.amount;
+      } else {
+        return b.amount - a.amount;
+      }
     });
-    setExpenses(sortedExpenses);
-    console.log(expenses);
-  };
-
-  //Sort by amount descending
-  const sortExpenses2 = () => {
-    const sortedExpenses = [...expenses].sort((a, b) => {
-      return b.amount - a.amount;
-    });
-    setExpenses(sortedExpenses);
-    console.log(expenses);
+    setData({ ...data, expenses: sortedExpenses });
+    setSort(!sort);
   };
 
   return (
     <div className={styles.monthlyBody}>
-      <Navigation></Navigation>
+      <Navigation />
       <h1 className={styles.heading}>Monthly balance</h1>
       <div className={styles.innerBody}>
-        <Plan></Plan>
+        <Plan setData={setData} />
         <div className={styles.expensesCard}>
           <h1> {currentMonth} 2021</h1>
           <select
@@ -175,23 +94,14 @@ const Monthly = () => {
             defaultValue={month}
             onChange={(e) => selectMonth(e.target.value)}
           >
-            <option value="1">January</option>
-            <option value="2">February</option>
-            <option value="3">March</option>
-            <option value="4">April</option>
-            <option value="5">May</option>
-            <option value="6">June</option>
-            <option value="7">July</option>
-            <option value="8">August</option>
-            <option value="9">September</option>
-            <option value="10">October</option>
-            <option value="11">November</option>
-            <option value="12">December</option>
+            {monthsOfYear.map((el, i) => (
+              <option value={i + 1}>{el}</option>
+            ))}
           </select>
           <div className={styles.row}>
             <h2>Expenses</h2>
             <Link
-              className={money ? styles.addExpense : styles.addExpenseInactive}
+              className={styles.addExpense}
               to={{
                 pathname: `/addexpense/${month}`,
               }}
@@ -202,18 +112,7 @@ const Monthly = () => {
           <table className={styles.tableExpenses}>
             <thead>
               <th>Name</th>
-              <th
-                className={styles.thFilter}
-                onClick={() => {
-                  if (sort) {
-                    sortExpenses2();
-                    setSort(false);
-                  } else {
-                    sortExpenses();
-                    setSort(true);
-                  }
-                }}
-              >
+              <th className={styles.thFilter} onClick={sortExpenses}>
                 Cost
                 {sort ? <p>▲</p> : <p>▼</p>}
               </th>
@@ -222,7 +121,7 @@ const Monthly = () => {
               <th></th>
             </thead>
             <tbody className={styles.expensesBody}>
-              {expenses.map((el) => (
+              {data.expenses.map((el) => (
                 <Item
                   name={el.name}
                   category={el.category}
@@ -243,7 +142,6 @@ const Monthly = () => {
           </table>
         </div>
       </div>
-      <NotificationContainer></NotificationContainer>
     </div>
   );
 };

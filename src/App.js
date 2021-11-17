@@ -1,14 +1,13 @@
-import Navigation from "./components/Navigation/Navigation";
+import { NotificationContainer } from "react-notifications";
 import Registration from "./components/Pages/Registration/Registration";
 import Login from "./components/Pages/Login/Login";
 import Monthly from "./components/Pages/Monthly/Monthly";
 import Yearly from "./components/Pages/Yearly/Yearly";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Switch, Route } from "react-router-dom";
 import AddExpense from "./components/Pages/Add Expense/Add";
-import { useState } from "react";
 import "react-notifications/lib/notifications.css";
 import Dashboard from "./components/Pages/Dashboard/Dashboard";
-import styles from "../src/components/Styles/Global.module.css";
+import "../src/components/Styles/Global.css";
 import Savings from "./components/Pages/Savings";
 
 function App() {
@@ -21,7 +20,7 @@ function App() {
       <Route path="/addexpense" component={AddExpense} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/savings" component={Savings} />
-      <Navigation></Navigation>
+      <NotificationContainer />
     </Switch>
   );
 }

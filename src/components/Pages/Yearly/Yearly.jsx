@@ -2,26 +2,11 @@ import React, { useEffect, useState } from "react";
 import Navigation from "../../Navigation/Navigation";
 import Card from "../../UI/Card/Card";
 import styles from "../../Styles/Yearly.module.css";
-
-const monthsOfYear = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
+import { monthsOfYear } from "../../Common/Common";
 
 const Yearly = () => {
+  const token = JSON.parse(localStorage.userDetails).token;
   const [months, setMonths] = useState([]);
-
-  let token = JSON.parse(localStorage.userDetails).token;
 
   useEffect(() => {
     fetch("http://localhost:5000/plan/2021", {
@@ -30,7 +15,6 @@ const Yearly = () => {
     })
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData);
         const keys = Object.values(responseData);
         const newKeys = keys.map((el, i) => ({
           ...el,
@@ -39,15 +23,13 @@ const Yearly = () => {
           year: 2021,
           id: i + 1,
         }));
-        console.log(newKeys);
         setMonths(newKeys);
-      })
-      .catch((error) => console.log(error.message));
-  }, []);
+      });
+  }, [token]);
 
   return (
     <div>
-      <Navigation></Navigation>
+      <Navigation />
       <h1 className={styles.heading}>Yearly Balance</h1>
       <div className={styles.yearlyContainer}>
         {months.map((el) => (
@@ -58,7 +40,7 @@ const Yearly = () => {
             balance={el.balance}
             id={el.id}
             expenses={el.expenses}
-          ></Card>
+          />
         ))}
       </div>
     </div>

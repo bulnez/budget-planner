@@ -1,39 +1,29 @@
 import React, { useState } from "react";
 import Navigation from "../../Navigation/Navigation";
 import { useHistory } from "react-router-dom";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
+import { errorNotification, successNotification } from "../../Common/Common";
 import styles from "../../Styles/Login.module.css";
 
 const Login = () => {
-  let history = useHistory();
+  const history = useHistory();
   const [details, setDetails] = useState({ email: "", password: "" });
 
-  const errorNotification = (errorMsg) =>
-    NotificationManager.error(errorMsg, "Click to hide", 2000, () => {
-      alert("callback");
-    });
-
-  const successNotification = (successMsg) =>
-    NotificationManager.success(successMsg, "Click to hide", 2000, () => {
-      alert("callback");
-    });
-
   const saveToken = (tokenDetails) => {
-    localStorage.setItem("userDetails", JSON.stringify(tokenDetails));
+    localStorage.setItem(
+      "userDetails",
+      JSON.stringify({
+        token: tokenDetails.token,
+        user: tokenDetails.user.name,
+      })
+    );
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const postRequest = details;
-
     fetch("http://localhost:5000/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(postRequest),
+      body: JSON.stringify(details),
     })
       .then((response) => response.json())
       .then((responseData) => {
@@ -51,7 +41,7 @@ const Login = () => {
 
   return (
     <div>
-      <Navigation></Navigation>
+      <Navigation />
       <div className={styles.mainContainer}>
         <h1>Login</h1>
         <div className={styles.loginContainer}>
@@ -80,7 +70,6 @@ const Login = () => {
           </form>
         </div>
       </div>
-      <NotificationContainer></NotificationContainer>
     </div>
   );
 };

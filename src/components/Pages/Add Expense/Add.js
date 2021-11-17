@@ -1,28 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Navigation from "../../Navigation/Navigation";
 import styles from "../../Styles/Add.module.css";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
+import { errorNotification, successNotification } from "../../Common/Common";
 import "react-notifications/lib/notifications.css";
 import { useHistory } from "react-router-dom";
 
 const AddExpense = () => {
-  let history = useHistory();
-  let token = JSON.parse(localStorage.userDetails).token;
-  let url = window.location.href;
+  const history = useHistory();
+  const token = JSON.parse(localStorage.userDetails).token;
+  const url = window.location.href;
   const month = url.split("/").pop();
-
-  const errorNotification = (errorMsg) =>
-    NotificationManager.error(errorMsg, "Something went wrong", 2000, () => {
-      alert("callback");
-    });
-  const successNotification = (successMsg) =>
-    NotificationManager.success(successMsg, "Good job!", 2000, () => {
-      alert("callback");
-    });
-
   const [details, setDetails] = useState({
     date: 0,
     name: "",
@@ -50,7 +37,6 @@ const AddExpense = () => {
       .then((response) => response.json())
       .then((responseData) => {
         if (responseData.success) {
-          console.log(responseData);
           successNotification(responseData.message);
           setTimeout(() => {
             history.push(`/monthly/${month}`);
@@ -69,7 +55,7 @@ const AddExpense = () => {
 
   return (
     <div>
-      <Navigation></Navigation>
+      <Navigation />
       <div className={styles.container}>
         <h1>Add Expenses</h1>
         <div className={styles.addContainer}>
@@ -82,7 +68,6 @@ const AddExpense = () => {
               onChange={(e) => setDetails({ ...details, name: e.target.value })}
               value={details.name}
             />
-            <br />
             <label>Category:</label>
             <select
               onChange={(e) =>
@@ -98,7 +83,6 @@ const AddExpense = () => {
               <option value="Travelling">Travelling</option>
               <option value="Fashion">Fashion</option>
             </select>
-            <br />
             <label type>Cost:</label>
             <input
               id="cost"
@@ -108,7 +92,6 @@ const AddExpense = () => {
               }
               value={details.amount}
             />
-            <br />
             <label>Payment date:</label>
             <input
               type="number"
@@ -117,12 +100,10 @@ const AddExpense = () => {
               onChange={(e) => setDetails({ ...details, date: e.target.value })}
               value={details.date}
             />
-            <br />
             <button type="submit">Submit</button>
           </form>
         </div>
       </div>
-      <NotificationContainer></NotificationContainer>
     </div>
   );
 };
