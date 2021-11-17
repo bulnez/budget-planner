@@ -126,7 +126,7 @@ const Monthly = () => {
                   name={el.name}
                   category={el.category}
                   amount={el.amount}
-                  date={el.date}
+                  date={el.date + "." + month + ".2021"}
                   delete={(e) => {
                     e.preventDefault();
                     deleteItem(el.id);
