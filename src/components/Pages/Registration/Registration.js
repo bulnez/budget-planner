@@ -30,37 +30,32 @@ const Registration = () => {
   };
 
   return (
-    <div>
-      <Navigation />
-      <div className={styles.mainContainer}>
-        <h1>Registration</h1>
-        <div className={styles.regContainer}>
-          <form className={styles.regForm} onSubmit={handleSubmit}>
-            <label>Name</label>
-            <input
-              type="text"
-              value={details.name}
-              onChange={(e) => setDetails({ ...details, name: e.target.value })}
-            />{" "}
-            <label>E-mail</label>
-            <input
-              type="email"
-              value={details.email}
-              onChange={(e) =>
-                setDetails({ ...details, email: e.target.value })
-              }
-            />{" "}
-            <label>Password</label>
-            <input
-              type="password"
-              value={details.password}
-              onChange={(e) =>
-                setDetails({ ...details, password: e.target.value })
-              }
-            />{" "}
-            <button type="submit">Submit</button>
-          </form>
-        </div>
+    <div className={styles.mainContainer}>
+      <h1>Registration</h1>
+      <div className={styles.regContainer}>
+        <form className={styles.regForm} onSubmit={handleSubmit}>
+          <label>Name</label>
+          <input
+            type="text"
+            value={details.name}
+            onChange={(e) => setDetails({ ...details, name: e.target.value })}
+          />{" "}
+          <label>E-mail</label>
+          <input
+            type="email"
+            value={details.email}
+            onChange={(e) => setDetails({ ...details, email: e.target.value })}
+          />{" "}
+          <label>Password</label>
+          <input
+            type="password"
+            value={details.password}
+            onChange={(e) =>
+              setDetails({ ...details, password: e.target.value })
+            }
+          />{" "}
+          <button type="submit">Submit</button>
+        </form>
       </div>
     </div>
   );

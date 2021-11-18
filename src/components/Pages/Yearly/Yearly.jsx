@@ -29,7 +29,6 @@ const Yearly = () => {
 
   return (
     <div>
-      <Navigation />
       <h1 className={styles.heading}>Yearly Balance</h1>
       <div className={styles.yearlyContainer}>
         {months.map((el) => (

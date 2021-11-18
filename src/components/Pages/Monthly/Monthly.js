@@ -81,12 +81,13 @@ const Monthly = () => {
     setSort(!sort);
   };
 
+  const num = 5;
+
   return (
     <div className={styles.monthlyBody}>
-      <Navigation />
       <h1 className={styles.heading}>Monthly balance</h1>
       <div className={styles.innerBody}>
-        <Plan setData={setData} />
+        <Plan setData={setData} nomer={balance} />
         <div className={styles.expensesCard}>
           <h1> {currentMonth} 2021</h1>
           <select
@@ -112,12 +113,12 @@ const Monthly = () => {
           <table className={styles.tableExpenses}>
             <thead>
               <th>Name</th>
+              <th>Payment date</th>
+              <th>Category</th>
               <th className={styles.thFilter} onClick={sortExpenses}>
                 Cost
                 {sort ? <p>▲</p> : <p>▼</p>}
               </th>
-              <th>Category</th>
-              <th>Payment date</th>
               <th></th>
             </thead>
             <tbody className={styles.expensesBody}>
@@ -133,11 +134,11 @@ const Monthly = () => {
                   }}
                 />
               ))}
+              <th></th>
+              <th></th>
               <th>Total spent:</th>
               <th>{total}</th>
               <th></th>
-              <th>Balance:</th>
-              <th>{balance}</th>
             </tbody>
           </table>
         </div>

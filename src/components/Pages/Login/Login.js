@@ -32,6 +32,7 @@ const Login = () => {
           successNotification(responseData.message);
           setTimeout(() => {
             history.push("/dashboard");
+            window.location.reload(false);
           }, 2100);
         } else {
           errorNotification(responseData.message);
@@ -40,35 +41,30 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <Navigation />
-      <div className={styles.mainContainer}>
-        <h1>Login</h1>
-        <div className={styles.loginContainer}>
-          <form className={styles.loginForm} onSubmit={handleSubmit}>
-            <label for="email">E-mail</label>
-            <input
-              id="email"
-              type="text"
-              onChange={(e) =>
-                setDetails({ ...details, email: e.target.value })
-              }
-              value={details.email}
-            />{" "}
-            <br />
-            <label for="password">Password</label>
-            <input
-              id="password"
-              type="password"
-              onChange={(e) =>
-                setDetails({ ...details, password: e.target.value })
-              }
-              value={details.password}
-            />
-            <br />
-            <button type="submit">Login</button>
-          </form>
-        </div>
+    <div className={styles.mainContainer}>
+      <h1>Login</h1>
+      <div className={styles.loginContainer}>
+        <form className={styles.loginForm} onSubmit={handleSubmit}>
+          <label for="email">E-mail</label>
+          <input
+            id="email"
+            type="text"
+            onChange={(e) => setDetails({ ...details, email: e.target.value })}
+            value={details.email}
+          />{" "}
+          <br />
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            onChange={(e) =>
+              setDetails({ ...details, password: e.target.value })
+            }
+            value={details.password}
+          />
+          <br />
+          <button type="submit">Login</button>
+        </form>
       </div>
     </div>
   );

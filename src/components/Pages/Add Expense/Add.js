@@ -54,55 +54,50 @@ const AddExpense = () => {
   };
 
   return (
-    <div>
-      <Navigation />
-      <div className={styles.container}>
-        <h1>Add Expenses</h1>
-        <div className={styles.addContainer}>
-          <form onSubmit={postExpense} className={styles.addForm}>
-            <h3>Add a new expense</h3>
-            <label>Name:</label>
-            <input
-              id="name"
-              type="text"
-              onChange={(e) => setDetails({ ...details, name: e.target.value })}
-              value={details.name}
-            />
-            <label>Category:</label>
-            <select
-              onChange={(e) =>
-                setDetails({ ...details, category: e.target.value })
-              }
-              value={details.category}
-            >
-              <option value="Food and groceries" selected>
-                Food and groceries
-              </option>
-              <option value="Apartment">Apartment</option>
-              <option value="Car">Car</option>
-              <option value="Travelling">Travelling</option>
-              <option value="Fashion">Fashion</option>
-            </select>
-            <label type>Cost:</label>
-            <input
-              id="cost"
-              type="number"
-              onChange={(e) =>
-                setDetails({ ...details, amount: e.target.value })
-              }
-              value={details.amount}
-            />
-            <label>Payment date:</label>
-            <input
-              type="number"
-              min="01"
-              max="31"
-              onChange={(e) => setDetails({ ...details, date: e.target.value })}
-              value={details.date}
-            />
-            <button type="submit">Submit</button>
-          </form>
-        </div>
+    <div className={styles.container}>
+      <h1>Add Expenses</h1>
+      <div className={styles.addContainer}>
+        <form onSubmit={postExpense} className={styles.addForm}>
+          <h3>Add a new expense</h3>
+          <label>Name:</label>
+          <input
+            id="name"
+            type="text"
+            onChange={(e) => setDetails({ ...details, name: e.target.value })}
+            value={details.name}
+          />
+          <label>Category:</label>
+          <select
+            onChange={(e) =>
+              setDetails({ ...details, category: e.target.value })
+            }
+            value={details.category}
+          >
+            <option value="Food and groceries" selected>
+              Food and groceries
+            </option>
+            <option value="Apartment">Apartment</option>
+            <option value="Car">Car</option>
+            <option value="Travelling">Travelling</option>
+            <option value="Fashion">Fashion</option>
+          </select>
+          <label type>Cost:</label>
+          <input
+            id="cost"
+            type="number"
+            onChange={(e) => setDetails({ ...details, amount: e.target.value })}
+            value={details.amount}
+          />
+          <label>Payment date:</label>
+          <input
+            type="number"
+            min="01"
+            max="31"
+            onChange={(e) => setDetails({ ...details, date: e.target.value })}
+            value={details.date}
+          />
+          <button type="submit">Submit</button>
+        </form>
       </div>
     </div>
   );

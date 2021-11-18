@@ -5,9 +5,9 @@ const Item = (props) => {
   return (
     <tr>
       <td>{props.name}</td>
-      <td>{props.amount}</td>
-      <td>{props.category}</td>
       <td>{props.date}</td>
+      <td>{props.category}</td>
+      <td>{props.amount}</td>
       <td>
         <button className={styles.buttonDelete} onClick={props.delete}>
           Delete

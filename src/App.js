@@ -1,6 +1,7 @@
 import { NotificationContainer } from "react-notifications";
 import Registration from "./components/Pages/Registration/Registration";
 import Login from "./components/Pages/Login/Login";
+import Navigation from "./components/Navigation/Navigation";
 import Monthly from "./components/Pages/Monthly/Monthly";
 import Yearly from "./components/Pages/Yearly/Yearly";
 import { BrowserRouter as Switch, Route } from "react-router-dom";
@@ -13,6 +14,7 @@ import Savings from "./components/Pages/Savings";
 function App() {
   return (
     <Switch>
+      <Navigation />
       <Route path="/login" component={Login} exact />
       <Route path="/registration" component={Registration} />
       <Route path="/monthly" component={Monthly} />
