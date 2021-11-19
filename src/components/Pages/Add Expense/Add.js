@@ -96,7 +96,17 @@ const AddExpense = () => {
             onChange={(e) => setDetails({ ...details, date: e.target.value })}
             value={details.date}
           />
-          <button type="submit">Submit</button>
+          <div className={styles.btnContainer}>
+            <button type="submit">Submit</button>
+            <button
+              className={styles.cancel}
+              onClick={() => {
+                history.push(`/monthly/${month}`);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </div>
