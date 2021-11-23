@@ -39,12 +39,14 @@ const Registration = () => {
             type="text"
             value={details.name}
             onChange={(e) => setDetails({ ...details, name: e.target.value })}
+            required
           />{" "}
           <label>E-mail</label>
           <input
             type="email"
             value={details.email}
             onChange={(e) => setDetails({ ...details, email: e.target.value })}
+            required
           />{" "}
           <label>Password</label>
           <input
@@ -53,6 +55,7 @@ const Registration = () => {
             onChange={(e) =>
               setDetails({ ...details, password: e.target.value })
             }
+            required
           />{" "}
           <button type="submit">Submit</button>
         </form>

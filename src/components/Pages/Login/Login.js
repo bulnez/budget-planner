@@ -45,12 +45,13 @@ const Login = () => {
       <h1>Login</h1>
       <div className={styles.loginContainer}>
         <form className={styles.loginForm} onSubmit={handleSubmit}>
-          <label for="email">E-mail</label>
+          <label>E-mail</label>
           <input
             id="email"
-            type="text"
+            type="email"
             onChange={(e) => setDetails({ ...details, email: e.target.value })}
             value={details.email}
+            required
           />{" "}
           <br />
           <label for="password">Password</label>
@@ -61,6 +62,7 @@ const Login = () => {
               setDetails({ ...details, password: e.target.value })
             }
             value={details.password}
+            required
           />
           <br />
           <button type="submit">Login</button>

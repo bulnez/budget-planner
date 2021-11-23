@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { useLocation, useParams } from "react-router";
+import { useParams } from "react-router";
 import styles from "../../Styles/Monthly.module.css";
 import Plan from "./Plan";
 import Item from "../../UI/Table/Items";
