@@ -17,7 +17,7 @@ function App() {
       <Navigation />
       <Route path="/login" component={Login} exact />
       <Route path="/registration" component={Registration} />
-      <Route path="/monthly" component={Monthly} />
+      <Route path="/monthly/:month" component={Monthly} />
       <Route path="/yearly" component={Yearly} />
       <Route path="/addexpense" component={AddExpense} />
       <Route path="/dashboard" component={Dashboard} />
