@@ -1,0 +1,91 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container h1 {
+  color: white;
+  margin-top: 1.5em;
+}
+
+.addContainer {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  background: var(--gradient-color);
+  border: 1px solid var(--border-color);
+  border-radius: 30px;
+  margin: 50px 20px;
+  padding: 1em 2em;
+  filter: drop-shadow(5px 5px 4px #2e3138);
+}
+
+.addForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.addForm h3 {
+  margin-bottom: 20px;
+  color: var(--white-color);
+}
+
+.addForminput,
+select {
+  border: none;
+  border-radius: 5px;
+  height: 20px;
+  color: var(--white-color);
+  transition: 0.3s ease;
+  background-color: rgba(239, 239, 239, 0.3);
+}
+
+.addForm option {
+  background-color: rgb(93, 93, 93);
+}
+
+.addForm label {
+  text-align: left;
+  font-weight: 800;
+  color: var(--white-color);
+  margin: 5px 0 5px;
+}
+
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+.addForm button {
+  margin-top: 10px;
+  text-decoration: none;
+  background-color: var(--green-color);
+  filter: drop-shadow(5px 5px 4px #2e3138);
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  border-radius: 10px;
+  color: var(--white-color);
+  letter-spacing: 2px;
+  font-weight: normal;
+  transition: 0.3s ease;
+  width: 50%;
+  margin: 15px auto;
+}
+
+.addForm button:hover {
+  background-color: #397a53;
+  cursor: pointer;
+}
+
+.cancel {
+  background-color: rgb(124, 0, 0) !important;
+}
+
+.cancel:hover {
+  background-color: rgb(87, 20, 8) !important;
+}

@@ -1,0 +1,15 @@
+.heading {
+  font-size: 35px;
+  text-align: center;
+  font-weight: 900;
+  color: white;
+  margin-top: 1.5em;
+}
+
+.yearlyContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 5em;
+}

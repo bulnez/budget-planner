@@ -1,0 +1,76 @@
+.savingsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.savingsContainer h1 {
+  color: white;
+  margin: 1.5em 0;
+  font-size: 35px;
+}
+
+.boxesContainer {
+  display: flex;
+  gap: 2em;
+}
+
+.innerBoxes {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.bigBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 25vh;
+  gap: 0.5em;
+  padding: 1em 2em;
+  background: var(--gradient-color);
+  border: 1px solid var(--border-color);
+  border-radius: 30px;
+  overflow: auto;
+  filter: drop-shadow(5px 5px 4px #2e3138);
+}
+
+.bigBox h1 {
+  margin: 0 0 0.5em;
+  font-size: 60px;
+}
+
+.bigBox p {
+  color: white;
+}
+
+.smallBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 25vh;
+  gap: 0.5em;
+  padding: 1em 2em;
+  background: var(--gradient-color);
+  border: 1px solid var(--border-color);
+  border-radius: 30px;
+  overflow: auto;
+  filter: drop-shadow(5px 5px 4px #2e3138);
+  color: white;
+}
+
+.joke {
+  color: rgb(163, 163, 163);
+  text-align: center;
+  margin-top: -0.5em;
+}
+
+@media screen and (max-width: 700px) {
+  .boxesContainer {
+    flex-direction: column;
+    gap: 4em;
+  }
+}

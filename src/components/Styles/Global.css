@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap");
+
+:root {
+  --gradient-color: linear-gradient(
+    45deg,
+    rgba(46, 49, 56, 1) 0%,
+    rgba(88, 88, 88, 1) 100%
+  );
+  --green-color: #459766;
+  --white-color: #d2d2d2;
+  --border-color: #5b5b5b;
+}
+
+html * {
+  font-family: "Mulish", sans-serif !important;
+}
+
+body {
+  background-color: rgb(63, 63, 63);
+  height: 100%;
+}

@@ -1,0 +1,69 @@
+.picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+}
+
+.heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.heading h1 {
+  font-size: 35px;
+  margin: 0;
+}
+
+.heading p {
+  font-size: 20px;
+  margin: 0;
+  padding-top: 10px;
+  color: white;
+}
+
+.heading p:hover {
+  cursor: pointer;
+}
+
+.table {
+  position: fixed;
+  margin-top: 70px;
+  background-color: grey;
+  display: none;
+  flex-wrap: wrap;
+  max-width: 500px;
+  filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.8));
+}
+
+.active {
+  display: flex;
+}
+
+.month {
+  width: 120px;
+  color: black;
+  padding: 10px;
+  flex-grow: 1;
+  border: 1px solid black;
+  text-align: center;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.month:hover {
+  cursor: pointer;
+  background-color: rgb(163, 163, 163);
+}
+
+.activeMonth {
+  background-color: rgb(212, 212, 212);
+}
+
+.activeMonth:hover {
+  background-color: rgb(212, 212, 212);
+}
