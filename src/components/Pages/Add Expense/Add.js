@@ -64,6 +64,7 @@ const AddExpense = () => {
             type="text"
             onChange={(e) => setDetails({ ...details, name: e.target.value })}
             value={details.name}
+            className={styles.addForminput}
           />
           <label>Category:</label>
           <select
@@ -86,6 +87,7 @@ const AddExpense = () => {
             type="number"
             onChange={(e) => setDetails({ ...details, amount: e.target.value })}
             value={details.amount}
+            className={styles.addForminput}
           />
           <label>Payment date:</label>
           <input
@@ -94,6 +96,7 @@ const AddExpense = () => {
             max="31"
             onChange={(e) => setDetails({ ...details, date: e.target.value })}
             value={details.date}
+            className={styles.addForminput}
           />
           <div className={styles.btnContainer}>
             <button type="submit">Submit</button>

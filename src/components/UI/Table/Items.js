@@ -9,7 +9,10 @@ const Item = (props) => {
       <td>{props.category}</td>
       <td>{props.amount}</td>
       <td>
-        <button className={styles.buttonDelete} onClick={props.delete}>
+        <button
+          className={styles.buttonDelete}
+          onClick={() => props.setPopup(true)}
+        >
           Delete
         </button>
       </td>

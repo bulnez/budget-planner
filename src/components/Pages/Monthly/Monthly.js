@@ -1,10 +1,10 @@
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
+import Popup from "../../UI/Popup";
 import styles from "../../Styles/Monthly.module.css";
 import Plan from "./Plan";
 import Item from "../../UI/Table/Items";
-import { currentYear, currentMonth } from "../../Common/Common";
 import { errorNotification, successNotification } from "../../Common/Common";
 import Picker from "../../UI/Picker/Picker";
 
@@ -12,7 +12,9 @@ const Monthly = () => {
   const [sort, setSort] = useState(false);
   const [data, setData] = useState({ budget: 0, balance: 0, expenses: [] });
   const [open, setOpen] = useState(false);
+  const [popup, setPopup] = useState({ open: false, id: "" });
   const { month } = useParams();
+  let idExpense = "";
   const token = JSON.parse(localStorage.userDetails).token;
 
   //Set total
@@ -34,30 +36,27 @@ const Monthly = () => {
 
   //Delete item
   const deleteItem = (id) => {
-    const dialogBox = window.confirm("Do you want to delete your expense?");
-    if (dialogBox == true) {
-      fetch(`http://localhost:5000/plan/expense/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `bearer ${token}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((responseData) => {
-          if (responseData.success) {
-            successNotification(responseData.message);
-            data.expenses.filter(() => {
-              const arr = data.expenses.filter(
-                (expense) => expense.id !== responseData.expense
-              );
-              setData({ ...data, expenses: arr });
-            });
-          } else {
-            errorNotification(responseData.message);
-          }
-        });
-    }
+    fetch(`http://localhost:5000/plan/expense/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        if (responseData.success) {
+          successNotification(responseData.message);
+          data.expenses.filter(() => {
+            const arr = data.expenses.filter(
+              (expense) => expense.id !== responseData.expense
+            );
+            setData({ ...data, expenses: arr });
+          });
+        } else {
+          errorNotification(responseData.message);
+        }
+      });
   };
 
   //Sort by amount
@@ -82,14 +81,25 @@ const Monthly = () => {
           <Picker month={month} setOpen={setOpen} open={open} />
           <div className={`${styles.row} ${open ? styles.blur : ""}`}>
             <h2>Expenses</h2>
-            <Link
-              className={styles.addExpense}
-              to={{
-                pathname: `/addexpense/${month}`,
+            <div
+              onClick={() => {
+                if (data.budget === 0)
+                  return errorNotification(
+                    "You have to add income and budget first"
+                  );
               }}
             >
-              Add expense
-            </Link>
+              <Link
+                className={`${styles.addExpense} ${
+                  data.budget === 0 ? "" : styles.active
+                }`}
+                to={{
+                  pathname: `/addexpense/${month}`,
+                }}
+              >
+                Add expense
+              </Link>
+            </div>
           </div>
           {data.expenses.length > 0 ? (
             <table
@@ -112,10 +122,8 @@ const Monthly = () => {
                     category={el.category}
                     amount={el.amount}
                     date={el.month + "." + month + ".2021"}
-                    delete={(e) => {
-                      e.preventDefault();
-                      deleteItem(el.id);
-                    }}
+                    id={el.id}
+                    setPopup={() => setPopup({ open: true, id: el.id })}
                   />
                 ))}
                 <th></th>
@@ -130,6 +138,12 @@ const Monthly = () => {
           )}
         </div>
       </div>
+      <Popup
+        message={"Are you sure you want to delete this expense?"}
+        popup={popup}
+        setPopup={setPopup}
+        deleteItem={deleteItem}
+      />
     </div>
   );
 };

@@ -7,7 +7,6 @@ import styles from "../../Styles/Register.module.css";
 const Registration = () => {
   const history = useHistory();
   const [details, setDetails] = useState({ name: "", email: "", password: "" });
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
