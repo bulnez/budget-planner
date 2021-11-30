@@ -79,6 +79,31 @@
   background-color: rgb(87, 20, 8) !important;
 }
 
+.disabled button {
+  background-color: grey;
+}
+
+.disabled button:hover {
+  background-color: grey;
+  cursor: not-allowed !important;
+}
+
+.disabled:hover {
+  cursor: not-allowed !important;
+}
+
+.disabled input:hover {
+  cursor: not-allowed !important;
+}
+
+.disabled label:hover {
+  cursor: not-allowed !important;
+}
+
+.disabled form:hover {
+  cursor: not-allowed !important;
+}
+
 @media screen and (max-width: 700px) {
   .planBody {
     margin-top: 0;

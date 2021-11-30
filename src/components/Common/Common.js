@@ -37,23 +37,6 @@ export const errorNotification = (errorMsg) =>
     alert("callback");
   });
 
-export const alertMsg = () => {
-  confirmAlert({
-    title: "Confirm to submit",
-    message: "Are you sure to do this.",
-    buttons: [
-      {
-        label: "Yes",
-        onClick: () => true,
-      },
-      {
-        label: "No",
-        onClick: () => false,
-      },
-    ],
-  });
-};
-
 export const successNotification = (successMsg) =>
   NotificationManager.success(successMsg, "Success!", 1000, () => {
     alert("callback");

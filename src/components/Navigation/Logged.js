@@ -10,13 +10,13 @@ const Logged = () => {
   const username = JSON.parse(localStorage.userDetails).user;
 
   return (
-    <div>
+    <div className={styles.container}>
       <div className={styles.navigation}>
         <div className={styles.menu}>
           <Link to={`/dashboard`} className={styles.link}>
             Dashboard
           </Link>
-          <Link to={`/monthly/${month + 1}`} className={styles.link}>
+          <Link to={`/2021/monthly/${month + 1}`} className={styles.link}>
             Monthly Balance
           </Link>
           <Link to="/yearly" className={styles.link}>

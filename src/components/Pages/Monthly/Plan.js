@@ -2,31 +2,33 @@ import React, { useEffect, useState } from "react";
 import { errorNotification, successNotification } from "../../Common/Common";
 import styles from "../../Styles/Plan.module.css";
 
-const Plan = ({ setData, balance, month }) => {
+const Plan = ({ setData, balance, month, year, disabled }) => {
   const [money, setMoney] = useState({ budget: 0, income: 0 });
   const [edit, setEdit] = useState(false);
   const token = JSON.parse(localStorage.userDetails).token;
 
   //Getting the current income and budget data MOVE IT TO MONTHLY
   useEffect(() => {
-    fetch(`http://localhost:5000/plan/2021/${month}`, {
-      method: "GET",
-      headers: {
-        Authorization: `bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        setMoney({
-          budget: responseData.budget,
-          income: responseData.income,
+    if (year === 2021) {
+      fetch(`http://localhost:5000/plan/2021/${month}`, {
+        method: "GET",
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((responseData) => {
+          setMoney({
+            budget: responseData.budget,
+            income: responseData.income,
+          });
+          setData({
+            budget: responseData.budget,
+            income: responseData.income,
+            expenses: responseData.expenses,
+          });
         });
-        setData({
-          budget: responseData.budget,
-          income: responseData.income,
-          expenses: responseData.expenses,
-        });
-      });
+    }
   }, [edit, token, month]);
 
   //Setting the new income and budget data
@@ -53,7 +55,7 @@ const Plan = ({ setData, balance, month }) => {
   };
 
   return (
-    <div className={styles.planBody}>
+    <div className={`${styles.planBody} ${disabled ? styles.disabled : ""}`}>
       <h1>Planner</h1>
       <form className={styles.planForm}>
         <label>Income</label>
@@ -98,7 +100,11 @@ const Plan = ({ setData, balance, month }) => {
               Save
             </button>
           ) : (
-            <button type="button" onClick={() => setEdit(true)} type="button">
+            <button
+              type="button"
+              onClick={() => (disabled ? "" : setEdit(true))}
+              type="button"
+            >
               Edit
             </button>
           )}

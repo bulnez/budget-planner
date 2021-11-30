@@ -14,7 +14,7 @@ const Monthly = () => {
   const [open, setOpen] = useState(false);
   const [popup, setPopup] = useState({ open: false, id: "" });
   const { month } = useParams();
-  let idExpense = "";
+  const { currYear } = useParams();
   const token = JSON.parse(localStorage.userDetails).token;
 
   //Set total
@@ -73,12 +73,19 @@ const Monthly = () => {
   };
 
   return (
-    <div className={styles.monthlyBody}>
+    <div>
       <h1 className={styles.heading}>Monthly balance</h1>
       <div className={styles.innerBody}>
-        <Plan month={month} setData={setData} balance={balance} month={month} />
+        <Plan
+          month={month}
+          setData={setData}
+          balance={balance}
+          month={parseInt(month)}
+          year={parseInt(currYear)}
+          disabled={false}
+        />
         <div className={styles.expensesCard}>
-          <Picker month={month} setOpen={setOpen} open={open} />
+          <Picker month={month} setOpen={setOpen} open={open} year={currYear} />
           <div className={`${styles.row} ${open ? styles.blur : ""}`}>
             <h2>Expenses</h2>
             <div

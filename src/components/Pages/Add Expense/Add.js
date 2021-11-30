@@ -38,7 +38,7 @@ const AddExpense = () => {
         if (responseData.success) {
           successNotification(responseData.message);
           setTimeout(() => {
-            history.push(`/monthly/${month}`);
+            history.push(`/2021/monthly/${month}`);
           }, 2100);
           setDetails({
             date: 0,
@@ -103,7 +103,7 @@ const AddExpense = () => {
             <button
               className={styles.cancel}
               onClick={() => {
-                history.push(`/monthly/${month}`);
+                history.push(`/2021/monthly/${month}`);
               }}
             >
               Cancel

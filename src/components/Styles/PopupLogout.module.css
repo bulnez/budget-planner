@@ -1,8 +1,8 @@
 .container {
   position: absolute;
   border-radius: 30px;
+  margin-top: 15em;
   z-index: 3;
-  margin: 15em 30em;
   background-color: rgb(226, 226, 226);
   width: 350px;
   height: 250px;

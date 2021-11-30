@@ -17,7 +17,7 @@ const Card = (props) => {
 
       <Link
         to={{
-          pathname: `/monthly/${props.id}`,
+          pathname: `/2021/monthly/${props.id}`,
         }}
         className={styles.linkBtn}
       >
