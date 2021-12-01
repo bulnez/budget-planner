@@ -8,10 +8,10 @@ const Card = (props) => {
     <div className={styles.card}>
       <h1>{props.month}</h1>
       <h3>{props.year}</h3>
+      <label>Income:</label>
+      <input name="income" placeholder={props.income} disabled></input>
       <label>Budget:</label>
-      <input name="budget" placeholder={props.budget} disabled></input>
-      <label>Expenses:</label>
-      <input name="expenses" placeholder={props.expenses} disabled></input>
+      <input name="expenses" placeholder={props.budget} disabled></input>
       <label>Balance:</label>
       <input name="balance" placeholder={props.balance} disabled></input>
 

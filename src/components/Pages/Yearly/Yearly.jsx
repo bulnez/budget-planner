@@ -1,34 +1,47 @@
 import React, { useEffect, useState } from "react";
-import Navigation from "../../Navigation/Navigation";
 import Card from "../../UI/Card/Card";
 import styles from "../../Styles/Yearly.module.css";
 import { monthsOfYear } from "../../Common/Common";
 
+const func = async (token) => {
+  let incomes = [];
+  for (let i = 1; i <= 12; i++) {
+    const result = await fetch(`http://localhost:5000/plan/2021/${i}`, {
+      method: "GET",
+      headers: { Authorization: `bearer ${token}` },
+    });
+    const data = await result.json();
+    incomes.push(data.income);
+  }
+
+  const result = await fetch("http://localhost:5000/plan/2021", {
+    method: "GET",
+    headers: { Authorization: `bearer ${token}` },
+  });
+  const data = await result.json();
+  const keys = Object.values(data);
+  const newKeys = keys.map((el, i) => ({
+    ...el,
+    budget: el.budget,
+    balance: el.balance,
+    income: incomes[i],
+    expenses: el.budget - el.balance,
+    month: monthsOfYear[i],
+    id: i + 1,
+  }));
+  return newKeys;
+};
+
 const Yearly = () => {
   const token = JSON.parse(localStorage.userDetails).token;
-  const [months, setMonths] = useState([]);
+  const [months, setMonths] = useState([
+    { expenses: 0, income: 0, month: "", year: 2021, id: 0 },
+  ]);
   const [year, setYear] = useState(2021);
 
   useEffect(() => {
-    if (year === 2021) {
-      fetch("http://localhost:5000/plan/2021", {
-        method: "GET",
-        headers: { Authorization: `bearer ${token}` },
-      })
-        .then((response) => response.json())
-        .then((responseData) => {
-          const keys = Object.values(responseData);
-          const newKeys = keys.map((el, i) => ({
-            ...el,
-            expenses: el.budget - el.balance,
-            month: monthsOfYear[i],
-            year: 2021,
-            id: i + 1,
-          }));
-          setMonths(newKeys);
-        });
-    }
-  }, [token, year]);
+    func(token).then((data) => setMonths(data));
+  }, [token]);
 
   return (
     <div className={styles.container}>
@@ -56,6 +69,7 @@ const Yearly = () => {
         <div className={styles.yearlyContainer}>
           {months.map((el) => (
             <Card
+              income={el.income}
               month={el.month}
               year={el.year}
               budget={el.budget}
