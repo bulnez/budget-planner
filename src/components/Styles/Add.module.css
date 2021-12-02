@@ -56,30 +56,8 @@ select {
 .btnContainer {
   display: flex;
   flex-direction: row;
-  gap: 1em;
-}
-
-.addForm button {
-  margin-top: 10px;
-  text-decoration: none;
-  background-color: var(--green-color);
-  filter: drop-shadow(5px 5px 4px #2e3138);
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid var(--border-color);
-  text-align: center;
-  border-radius: 10px;
-  color: var(--white-color);
-  letter-spacing: 2px;
-  font-weight: normal;
-  transition: 0.3s ease;
-  width: 50%;
-  margin: 15px auto;
-}
-
-.addForm button:hover {
-  background-color: #397a53;
-  cursor: pointer;
+  justify-content: space-evenly;
+  margin-top: 1em;
 }
 
 .cancel {

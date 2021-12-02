@@ -6,7 +6,7 @@
   max-width: 200px;
   height: 300px;
   background: var(--gradient-color);
-  gap: 0.3em;
+  gap: 0.5em;
   margin: 30px;
   padding: 30px;
   border: 1px solid var(--border-color);
@@ -20,21 +20,9 @@
 }
 
 .card h1 {
-  margin-bottom: 0;
+  margin-bottom: 20px;
 }
 
-.linkBtn {
-  margin-top: 10px;
-  text-decoration: none;
-  background-color: var(--green-color);
-  filter: drop-shadow(5px 5px 4px #2e3138);
-  padding: 10px;
-  border: 1px solid var(--border-color);
-  text-align: center;
-  border-radius: 10px;
-  color: var(--white-color);
-  letter-spacing: 2px;
-  font-weight: normal;
-  margin: 20px 0;
-  transition: 0.3s ease;
+.link {
+  margin-top: 1em;
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../../Styles/Items.module.css";
+import Button from "../Button";
 
 const Item = (props) => {
   return (
@@ -9,12 +10,12 @@ const Item = (props) => {
       <td>{props.category}</td>
       <td>{props.amount}</td>
       <td>
-        <button
-          className={styles.buttonDelete}
+        <Button
+          buttonStyle="warning"
+          buttonSize="small"
           onClick={() => props.setPopup(true)}
-        >
-          Delete
-        </button>
+          text="Delete"
+        />
       </td>
     </tr>
   );

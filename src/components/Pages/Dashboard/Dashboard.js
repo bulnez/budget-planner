@@ -3,6 +3,7 @@ import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 import styles from "../../Styles/Dashboard.module.css";
 import { monthsOfYear } from "../../Common/Common";
+import Button from "../../UI/Button";
 
 const Dashboard = () => {
   const token = JSON.parse(localStorage.userDetails).token;
@@ -110,13 +111,15 @@ const Dashboard = () => {
       </div>
       <div className={styles.detailsButton}>
         <Link
-          className={styles.btn}
           to={{
-            pathname: `/monthly/${month}`,
+            pathname: `/2021/monthly/${month}`,
           }}
-          disabled
         >
-          More details
+          <Button
+            buttonStyle="primary"
+            buttonSize="medium"
+            text="More details"
+          />
         </Link>
       </div>
     </div>

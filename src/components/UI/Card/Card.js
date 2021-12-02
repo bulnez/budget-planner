@@ -1,27 +1,25 @@
 import React from "react";
 import styles from "../../Styles/Card.module.css";
-
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Button from "../Button";
+import { Link } from "react-router-dom";
 
 const Card = (props) => {
   return (
     <div className={styles.card}>
       <h1>{props.month}</h1>
-      <h3>{props.year}</h3>
       <label>Income:</label>
       <input name="income" placeholder={props.income} disabled></input>
       <label>Budget:</label>
       <input name="expenses" placeholder={props.budget} disabled></input>
       <label>Balance:</label>
       <input name="balance" placeholder={props.balance} disabled></input>
-
       <Link
+        className={styles.link}
         to={{
           pathname: `/2021/monthly/${props.id}`,
         }}
-        className={styles.linkBtn}
       >
-        Details
+        <Button buttonStyle="primary" buttonSize="small" text="Details" />
       </Link>
     </div>
   );

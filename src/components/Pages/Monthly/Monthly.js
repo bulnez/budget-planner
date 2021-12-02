@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
+import Button from "../../UI/Button";
 import Popup from "../../UI/Popup";
 import styles from "../../Styles/Monthly.module.css";
 import Plan from "./Plan";
@@ -75,6 +76,7 @@ const Monthly = () => {
   return (
     <div>
       <h1 className={styles.heading}>Monthly balance</h1>
+
       <div className={styles.innerBody}>
         <Plan
           month={month}
@@ -88,25 +90,24 @@ const Monthly = () => {
           <Picker month={month} setOpen={setOpen} open={open} year={currYear} />
           <div className={`${styles.row} ${open ? styles.blur : ""}`}>
             <h2>Expenses</h2>
-            <div
-              onClick={() => {
-                if (data.budget === 0)
-                  return errorNotification(
-                    "You have to add income and budget first"
-                  );
+
+            <Link
+              to={{
+                pathname: `/addexpense/${month}`,
               }}
             >
-              <Link
-                className={`${styles.addExpense} ${
-                  data.budget === 0 ? "" : styles.active
-                }`}
-                to={{
-                  pathname: `/addexpense/${month}`,
+              <Button
+                buttonSize="medium"
+                buttonStyle={data.budget === 0 ? "inactive" : "primary"}
+                text="Add expense"
+                onClick={() => {
+                  if (data.budget === 0)
+                    return errorNotification(
+                      "You have to add income and budget first"
+                    );
                 }}
-              >
-                Add expense
-              </Link>
-            </div>
+              />
+            </Link>
           </div>
           {data.expenses.length > 0 ? (
             <table

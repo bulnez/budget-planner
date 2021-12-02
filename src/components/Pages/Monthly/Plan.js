@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { errorNotification, successNotification } from "../../Common/Common";
 import styles from "../../Styles/Plan.module.css";
+import Button from "../../UI/Button";
 
 const Plan = ({ setData, balance, month, year, disabled }) => {
   const [money, setMoney] = useState({ budget: 0, income: 0 });
@@ -83,42 +84,40 @@ const Plan = ({ setData, balance, month, year, disabled }) => {
         />
         <div className={styles.buttons}>
           {edit ? (
-            <button
-              type="button"
-              onClick={() => {
-                if (money.budget > money.income) {
-                  errorNotification(
-                    "Your budget can't be higher than your income."
-                  );
-                  setEdit(true);
-                } else {
-                  postData();
+            <div className={styles.btns}>
+              <Button
+                buttonStyle="primary"
+                buttonSize="small"
+                text="Save"
+                onClick={() => {
+                  if (money.budget > money.income) {
+                    errorNotification(
+                      "Your budget can't be higher than your income."
+                    );
+                    setEdit(true);
+                  } else {
+                    postData();
+                    setEdit(false);
+                  }
+                }}
+              />
+              <Button
+                buttonStyle="warning"
+                buttonSize="small"
+                text="Cancel"
+                onClick={() => {
                   setEdit(false);
-                }
-              }}
-            >
-              Save
-            </button>
+                }}
+              />
+            </div>
           ) : (
-            <button
-              type="button"
+            <Button
+              className={styles.editBtn}
+              buttonStyle="primary"
+              buttonSize="small"
+              text="Edit details"
               onClick={() => (disabled ? "" : setEdit(true))}
-              type="button"
-            >
-              Edit
-            </button>
-          )}
-          {edit ? (
-            <button
-              className={styles.cancel}
-              onClick={() => {
-                setEdit(false);
-              }}
-            >
-              Cancel
-            </button>
-          ) : (
-            ""
+            />
           )}
         </div>
       </form>

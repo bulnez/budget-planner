@@ -1,18 +1,20 @@
 .planBody {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   background: var(--gradient-color);
   border: 1px solid var(--border-color);
   border-radius: 30px;
-  height: 350px;
+  height: 360px;
   width: 200px;
-  margin: 50px 20px;
-  padding: 1em 2em;
+  margin: 20px;
+  padding: 1em 1.5em;
   filter: drop-shadow(5px 5px 4px #2e3138);
 }
 
 .planBody h1 {
   color: white;
+  font-size: 25px;
 }
 
 .planForm {
@@ -25,6 +27,8 @@
   border: none;
   border-radius: 5px;
   color: var(--white-color);
+  padding: 4px 2px;
+  font-size: 15px;
   transition: 0.3s ease;
   background-color: var(--green-color);
 }
@@ -33,6 +37,8 @@
   border: none;
   border-radius: 5px;
   color: var(--white-color);
+  padding: 4px 2px;
+  font-size: 15px;
   transition: 0.3s ease;
   background-color: grey;
 }
@@ -44,30 +50,17 @@
   color: var(--white-color);
 }
 
-.planForm button {
-  margin-top: 10px;
-  text-decoration: none;
-  background-color: var(--green-color);
-  filter: drop-shadow(5px 5px 4px #2e3138);
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid var(--border-color);
-  text-align: center;
-  border-radius: 10px;
-  color: var(--white-color);
-  letter-spacing: 2px;
-  font-weight: normal;
-  transition: 0.3s ease;
-  width: 50%;
-}
-
-.planForm button:hover {
-  background-color: #397a53;
-  cursor: pointer;
-}
-
 .buttons {
   display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 1em;
+}
+
+.btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
   gap: 1em;
 }
 

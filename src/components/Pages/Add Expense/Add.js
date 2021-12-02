@@ -3,6 +3,7 @@ import styles from "../../Styles/Add.module.css";
 import { errorNotification, successNotification } from "../../Common/Common";
 import "react-notifications/lib/notifications.css";
 import { useHistory } from "react-router-dom";
+import Button from "../../UI/Button";
 
 const AddExpense = () => {
   const history = useHistory();
@@ -99,15 +100,20 @@ const AddExpense = () => {
             className={styles.addForminput}
           />
           <div className={styles.btnContainer}>
-            <button type="submit">Submit</button>
-            <button
-              className={styles.cancel}
+            <Button
+              type="submit"
+              buttonSize="medium"
+              buttonStyle="primary"
+              text="Submit"
+            />
+            <Button
+              buttonSize="medium"
+              buttonStyle="warning"
+              text="Cancel"
               onClick={() => {
                 history.push(`/2021/monthly/${month}`);
               }}
-            >
-              Cancel
-            </button>
+            />
           </div>
         </form>
       </div>
