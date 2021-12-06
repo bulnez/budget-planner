@@ -1,41 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { errorNotification, successNotification } from "../../Common/Common";
 import styles from "../../Styles/Plan.module.css";
 import Button from "../../UI/Button";
 
-const Plan = ({ setData, balance, month, year, disabled }) => {
-  const [money, setMoney] = useState({ budget: 0, income: 0 });
+const Plan = ({ month, disabled, data, setData, balance }) => {
   const [edit, setEdit] = useState(false);
   const token = JSON.parse(localStorage.userDetails).token;
 
-  //Getting the current income and budget data
-  useEffect(() => {
-    if (year === 2021) {
-      fetch(`http://localhost:5000/plan/2021/${month}`, {
-        method: "GET",
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((responseData) => {
-          setMoney({
-            budget: responseData.budget,
-            income: responseData.income,
-          });
-          setData({
-            budget: responseData.budget,
-            income: responseData.income,
-            expenses: responseData.expenses,
-          });
-        });
-    }
-  }, [edit, token, month]);
-
   //Setting the new income and budget data
   const postData = () => {
-    Object.keys(money).forEach((e) => {
-      money[e] = parseInt(money[e]);
+    const newData = { budget: data.budget, income: data.income };
+
+    Object.keys(newData).forEach((e) => {
+      newData[e] = parseInt(newData[e]);
     });
     fetch(`http://localhost:5000/plan/2021/${month}`, {
       method: "POST",
@@ -43,7 +20,7 @@ const Plan = ({ setData, balance, month, year, disabled }) => {
         "Content-Type": "application/json",
         Authorization: `bearer ${token}`,
       },
-      body: JSON.stringify(money),
+      body: JSON.stringify(newData),
     })
       .then((response) => response.json())
       .then((responseData) => {
@@ -62,16 +39,16 @@ const Plan = ({ setData, balance, month, year, disabled }) => {
         <label>Income</label>
         <input
           type="number"
-          onChange={(e) => setMoney({ ...money, income: e.target.value })}
-          value={money.income}
+          onChange={(e) => setData({ ...data, income: e.target.value })}
+          value={data.income}
           disabled={edit ? false : true}
           className={edit ? styles.activeInput : styles.inactiveInput}
         />
         <label>Budget:</label>
         <input
           type="number"
-          onChange={(e) => setMoney({ ...money, budget: e.target.value })}
-          value={money.budget}
+          onChange={(e) => setData({ ...data, budget: e.target.value })}
+          value={data.budget}
           disabled={edit ? false : true}
           className={edit ? styles.activeInput : styles.inactiveInput}
         />
@@ -90,7 +67,7 @@ const Plan = ({ setData, balance, month, year, disabled }) => {
                 buttonSize="small"
                 text="Save"
                 onClick={() => {
-                  if (money.budget > money.income) {
+                  if (data.budget > data.income) {
                     errorNotification(
                       "Your budget can't be higher than your income."
                     );

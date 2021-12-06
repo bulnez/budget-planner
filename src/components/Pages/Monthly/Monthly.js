@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import Button from "../../UI/Button";
@@ -9,14 +9,39 @@ import Item from "../../UI/Table/Items";
 import { errorNotification, successNotification } from "../../Common/Common";
 import Picker from "../../UI/Picker/Picker";
 
+const token = JSON.parse(localStorage.userDetails).token;
+
 const Monthly = () => {
-  const [sort, setSort] = useState(false);
-  const [data, setData] = useState({ budget: 0, balance: 0, expenses: [] });
-  const [open, setOpen] = useState(false);
-  const [popup, setPopup] = useState({ open: false, id: "" });
   const { month } = useParams();
   const { currYear } = useParams();
-  const token = JSON.parse(localStorage.userDetails).token;
+  const [data, setData] = useState({
+    budget: 0,
+    income: 0,
+    expenses: [],
+  });
+  const [sort, setSort] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [popup, setPopup] = useState({ open: false, id: "" });
+
+  //Get the current data
+  useEffect(() => {
+    if (parseInt(currYear) === 2021) {
+      fetch(`http://localhost:5000/plan/2021/${month}`, {
+        method: "GET",
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((responseData) => {
+          setData({
+            budget: responseData.budget,
+            income: responseData.income,
+            expenses: responseData.expenses,
+          });
+        });
+    }
+  }, [token, month, currYear]);
 
   //Set total
   const total = useMemo(() => {
@@ -79,12 +104,11 @@ const Monthly = () => {
 
       <div className={styles.innerBody}>
         <Plan
-          month={month}
-          setData={setData}
           balance={balance}
           month={parseInt(month)}
-          year={parseInt(currYear)}
           disabled={false}
+          data={data}
+          setData={setData}
         />
         <div className={styles.expensesCard}>
           <Picker month={month} setOpen={setOpen} open={open} year={currYear} />
