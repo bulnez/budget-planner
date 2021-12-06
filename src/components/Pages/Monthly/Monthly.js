@@ -33,7 +33,7 @@ const Monthly = () => {
   //Set balance
   const balance = useMemo(() => {
     return data.budget - total;
-  }, [data]);
+  }, [data.budget, data.expenses]);
 
   //Delete item
   const deleteItem = (id) => {
@@ -129,7 +129,7 @@ const Monthly = () => {
                     name={el.name}
                     category={el.category}
                     amount={el.amount}
-                    date={el.month + "." + month + ".2021"}
+                    date={el.date + "." + month + ".2021"}
                     id={el.id}
                     setPopup={() => setPopup({ open: true, id: el.id })}
                   />

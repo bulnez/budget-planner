@@ -5,52 +5,62 @@ import "react-notifications/lib/notifications.css";
 import { useHistory } from "react-router-dom";
 import Button from "../../UI/Button";
 
+const date = new Date();
+const today = date.getDate();
+const thisMonth = date.getMonth() + 1;
+
 const AddExpense = () => {
   const history = useHistory();
   const token = JSON.parse(localStorage.userDetails).token;
   const url = window.location.href;
-  const month = url.split("/").pop();
+  const month = parseInt(url.split("/").pop());
+  console.log("render");
   const [details, setDetails] = useState({
     date: 0,
     name: "",
     category: "Food and groceries",
     amount: 0,
   });
+  console.log(month, thisMonth);
 
   const postExpense = (e) => {
     e.preventDefault();
-
-    Object.keys(details).forEach((e) => {
-      if (isNaN(details[e]) === false) {
-        details[e] = parseInt(details[e]);
-      }
-    });
-
-    fetch(`http://localhost:5000/plan/2021/${month}/expense`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `bearer ${token}`,
-      },
-      body: JSON.stringify(details),
-    })
-      .then((response) => response.json())
-      .then((responseData) => {
-        if (responseData.success) {
-          successNotification(responseData.message);
-          setTimeout(() => {
-            history.push(`/2021/monthly/${month}`);
-          }, 2100);
-          setDetails({
-            date: 0,
-            name: "",
-            category: "Food and groceries",
-            amount: 0,
-          });
-        } else {
-          errorNotification(responseData.message);
+    if (details.date > today && thisMonth === month) {
+      console.log("it works");
+      errorNotification("You can't post future expenses");
+    } else {
+      Object.keys(details).forEach((e) => {
+        if (isNaN(details[e]) === false) {
+          details[e] = parseInt(details[e]);
         }
       });
+
+      fetch(`http://localhost:5000/plan/2021/${month}/expense`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `bearer ${token}`,
+        },
+        body: JSON.stringify(details),
+      })
+        .then((response) => response.json())
+        .then((responseData) => {
+          if (responseData.success) {
+            successNotification(responseData.message);
+            setTimeout(() => {
+              history.push(`/2021/monthly/${month}`);
+            }, 2100);
+            setDetails({
+              date: 0,
+              name: "",
+              category: "Food and groceries",
+              amount: 0,
+            });
+          } else {
+            errorNotification(responseData.message);
+          }
+        });
+    }
   };
 
   return (

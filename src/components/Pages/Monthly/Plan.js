@@ -8,7 +8,7 @@ const Plan = ({ setData, balance, month, year, disabled }) => {
   const [edit, setEdit] = useState(false);
   const token = JSON.parse(localStorage.userDetails).token;
 
-  //Getting the current income and budget data MOVE IT TO MONTHLY
+  //Getting the current income and budget data
   useEffect(() => {
     if (year === 2021) {
       fetch(`http://localhost:5000/plan/2021/${month}`, {
