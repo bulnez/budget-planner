@@ -134,7 +134,7 @@ const Monthly = () => {
             </Link>
           </div>
           {data.expenses.length > 0 ? (
-            <table
+            <div
               className={`${styles.tableExpenses} ${open ? styles.blur : ""}`}
             >
               <thead>
@@ -164,7 +164,7 @@ const Monthly = () => {
                 <th>{total}</th>
                 <th></th>
               </tbody>
-            </table>
+            </div>
           ) : (
             <p className={styles.empty}>You still don't have any expenses</p>
           )}
