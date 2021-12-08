@@ -93,6 +93,7 @@ const Plan = ({ month, disabled, data, setData, balance }) => {
               buttonStyle="primary"
               buttonSize="small"
               text="Edit details"
+              disabled={disabled ? "disabled" : ""}
               onClick={() => (disabled ? "" : setEdit(true))}
             />
           )}

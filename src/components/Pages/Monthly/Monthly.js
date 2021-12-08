@@ -1,19 +1,22 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import Button from "../../UI/Button";
 import Popup from "../../UI/Popup";
+import { PopupPortal } from "../../Common/Common";
 import styles from "../../Styles/Monthly.module.css";
 import Plan from "./Plan";
 import Item from "../../UI/Table/Items";
 import { errorNotification, successNotification } from "../../Common/Common";
 import Picker from "../../UI/Picker/Picker";
+import AddExpensePopup from "../../UI/AddExpensePopup";
 
 const token = JSON.parse(localStorage.userDetails).token;
 
 const Monthly = () => {
   const { month } = useParams();
   const { currYear } = useParams();
+  const [update, setUpdate] = useState(false);
   const [data, setData] = useState({
     budget: 0,
     income: 0,
@@ -21,6 +24,7 @@ const Monthly = () => {
   });
   const [sort, setSort] = useState(false);
   const [open, setOpen] = useState(false);
+  const [add, setAdd] = useState(false);
   const [popup, setPopup] = useState({ open: false, id: "" });
 
   //Get the current data
@@ -41,7 +45,7 @@ const Monthly = () => {
           });
         });
     }
-  }, [token, month, currYear]);
+  }, [token, month, currYear, update]);
 
   //Set total
   const total = useMemo(() => {
@@ -99,9 +103,8 @@ const Monthly = () => {
   };
 
   return (
-    <div>
+    <div className={add || popup.open ? styles.blurred : ""}>
       <h1 className={styles.heading}>Monthly balance</h1>
-
       <div className={styles.innerBody}>
         <Plan
           balance={balance}
@@ -115,23 +118,20 @@ const Monthly = () => {
           <div className={`${styles.row} ${open ? styles.blur : ""}`}>
             <h2>Expenses</h2>
 
-            <Link
-              to={{
-                pathname: `/addexpense/${month}`,
+            <Button
+              buttonSize="medium"
+              buttonStyle={data.budget === 0 ? "inactive" : "primary"}
+              text="Add expense"
+              onClick={() => {
+                if (data.budget === 0) {
+                  return errorNotification(
+                    "You have to add income and budget first"
+                  );
+                } else {
+                  setAdd(true);
+                }
               }}
-            >
-              <Button
-                buttonSize="medium"
-                buttonStyle={data.budget === 0 ? "inactive" : "primary"}
-                text="Add expense"
-                onClick={() => {
-                  if (data.budget === 0)
-                    return errorNotification(
-                      "You have to add income and budget first"
-                    );
-                }}
-              />
-            </Link>
+            />
           </div>
           {data.expenses.length > 0 ? (
             <div
@@ -170,11 +170,25 @@ const Monthly = () => {
           )}
         </div>
       </div>
-      <Popup
-        message={"Are you sure you want to delete this expense?"}
-        popup={popup}
-        setPopup={setPopup}
-        deleteItem={deleteItem}
+      <PopupPortal
+        component={
+          <Popup
+            message={"Are you sure you want to delete this expense?"}
+            popup={popup}
+            setPopup={setPopup}
+            deleteItem={deleteItem}
+          />
+        }
+      />
+      <PopupPortal
+        component={
+          <AddExpensePopup
+            setUpdate={setUpdate}
+            update={update}
+            add={add}
+            setAdd={setAdd}
+          />
+        }
       />
     </div>
   );

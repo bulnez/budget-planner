@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PopupLogout from "../Navigation/PopupLogout";
 import styles from "../Styles/Navigation.module.css";
 import { Link } from "react-router-dom";
+import { PopupPortal } from "../Common/Common";
 
 const Logged = () => {
   const [popup, setPopup] = useState(false);
@@ -38,10 +39,14 @@ const Logged = () => {
           </button>
         </div>
       </div>
-      <PopupLogout
-        message={"Are you sure you want to logout?"}
-        popup={popup}
-        setPopup={setPopup}
+      <PopupPortal
+        component={
+          <PopupLogout
+            message={"Are you sure you want to logout?"}
+            popup={popup}
+            setPopup={setPopup}
+          />
+        }
       />
     </div>
   );

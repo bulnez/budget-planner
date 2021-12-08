@@ -19,17 +19,22 @@
   justify-content: flex-start;
   width: 800px;
   max-height: 600px;
+  min-height: 360px;
   gap: 0.5em;
   padding: 1em 2em;
   background: var(--gradient-color);
   background-color: black;
   border: 1px solid var(--border-color);
   border-radius: 30px;
-  margin: 50px 20px;
+  margin: 25px 20px;
   filter: drop-shadow(5px 5px 4px #2e3138);
 }
 
 .blur {
+  filter: blur(2px);
+}
+
+.blurred {
   filter: blur(2px);
 }
 
@@ -52,6 +57,7 @@
 .empty {
   padding-top: 40px;
   font-size: 20px;
+  text-align: center;
   color: white;
 }
 
@@ -87,7 +93,6 @@
   border-spacing: 2px;
   border-color: grey;
   border-collapse: collapse;
-  height: 300px;
   width: 100%;
   text-align: left;
 }
