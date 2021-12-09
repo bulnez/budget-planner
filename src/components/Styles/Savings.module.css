@@ -62,6 +62,11 @@
   color: white;
 }
 
+.burgerIcon {
+  margin-bottom: -3px;
+  font-size: 20px;
+}
+
 .joke {
   color: rgb(163, 163, 163);
   text-align: center;

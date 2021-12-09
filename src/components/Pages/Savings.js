@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navigation from "../Navigation/Navigation";
+import { MdFastfood } from "react-icons/md";
 import styles from "../Styles/Savings.module.css";
 import CountUp from "react-countup";
 
@@ -81,7 +81,8 @@ const Savings = () => {
             <p>Or {yearlySavingsPercent} of your yearly income</p>
           </div>
           <p className={styles.joke}>
-            and enough to buy {yearlySavings / 5} duners
+            and enough to buy {yearlySavings / 5} burgers{" "}
+            <MdFastfood className={styles.burgerIcon} />
           </p>
         </div>
       </div>

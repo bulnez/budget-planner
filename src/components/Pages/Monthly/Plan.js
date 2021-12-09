@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { errorNotification, successNotification } from "../../Common/Common";
 import styles from "../../Styles/Plan.module.css";
 import Button from "../../UI/Button";
+import { AiTwotoneEdit } from "react-icons/ai";
 
 const Plan = ({ month, disabled, data, setData, balance }) => {
   const [edit, setEdit] = useState(false);
@@ -89,10 +90,14 @@ const Plan = ({ month, disabled, data, setData, balance }) => {
             </div>
           ) : (
             <Button
-              className={styles.editBtn}
               buttonStyle="primary"
               buttonSize="small"
-              text="Edit details"
+              text={
+                <div className={styles.editBtn}>
+                  <AiTwotoneEdit />
+                  Edit details
+                </div>
+              }
               disabled={disabled ? "disabled" : ""}
               onClick={() => (disabled ? "" : setEdit(true))}
             />

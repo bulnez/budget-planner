@@ -38,6 +38,15 @@
   filter: blur(2px);
 }
 
+.addBtn {
+  display: flex;
+  gap: 0.5em;
+}
+
+.icon {
+  font-size: 16px;
+}
+
 .expensesCard h1 {
   color: white;
   margin-bottom: 5px;

@@ -1,5 +1,4 @@
 import React, { useState, useMemo, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import Button from "../../UI/Button";
 import Popup from "../../UI/Popup";
@@ -10,6 +9,7 @@ import Item from "../../UI/Table/Items";
 import { errorNotification, successNotification } from "../../Common/Common";
 import Picker from "../../UI/Picker/Picker";
 import AddExpensePopup from "../../UI/AddExpensePopup";
+import { MdAddCircle } from "react-icons/md";
 
 const token = JSON.parse(localStorage.userDetails).token;
 
@@ -121,7 +121,12 @@ const Monthly = () => {
             <Button
               buttonSize="medium"
               buttonStyle={data.budget === 0 ? "inactive" : "primary"}
-              text="Add expense"
+              text={
+                <div className={styles.addBtn}>
+                  <MdAddCircle className={styles.icon} />
+                  Add expense
+                </div>
+              }
               onClick={() => {
                 if (data.budget === 0) {
                   return errorNotification(
