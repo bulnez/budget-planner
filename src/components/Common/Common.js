@@ -35,12 +35,12 @@ export const monthsOfYearShort = [
 ];
 
 export const errorNotification = (errorMsg) =>
-  NotificationManager.error(errorMsg, "Something went wrong", 1000, () => {
+  NotificationManager.error(errorMsg, "Something went wrong", 3000, () => {
     alert("callback");
   });
 
 export const successNotification = (successMsg) =>
-  NotificationManager.success(successMsg, "Success!", 1000, () => {
+  NotificationManager.success(successMsg, "Success!", 3000, () => {
     alert("callback");
   });
 
