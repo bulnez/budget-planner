@@ -1,19 +1,19 @@
-import React, { useState, useMemo, useEffect, useRef } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useParams } from "react-router";
-import Button from "../../UI/Button";
-import Popup from "../../UI/Popup";
+import Button from "../../UI/UIs/Button";
+import Popup from "../../UI/UIs/Popup";
 import { PopupPortal } from "../../Common/Common";
 import styles from "../../Styles/Monthly.module.css";
 import Plan from "./Plan";
 import Item from "../../UI/Table/Items";
 import { errorNotification, successNotification } from "../../Common/Common";
 import Picker from "../../UI/Picker/Picker";
-import AddExpensePopup from "../../UI/AddExpensePopup";
+import AddExpensePopup from "../../UI/UIs/AddExpensePopup";
 import { MdAddCircle } from "react-icons/md";
 
-const token = JSON.parse(localStorage.userDetails).token;
-
 const Monthly = () => {
+  const token = JSON.parse(localStorage.userDetails).token;
+
   const { month } = useParams();
   const { currYear } = useParams();
   const [update, setUpdate] = useState(false);

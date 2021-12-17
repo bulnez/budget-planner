@@ -3,7 +3,7 @@ import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 import styles from "../../Styles/Dashboard.module.css";
 import { monthsOfYear } from "../../Common/Common";
-import Button from "../../UI/Button";
+import Button from "../../UI/UIs/Button";
 
 const Dashboard = () => {
   const token = JSON.parse(localStorage.userDetails).token;

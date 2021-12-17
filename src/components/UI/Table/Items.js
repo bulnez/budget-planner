@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "../Button";
+import Button from "../UIs/Button";
 import { FaRegTrashAlt } from "react-icons/fa";
 import styles from "../../Styles/Items.module.css";
 

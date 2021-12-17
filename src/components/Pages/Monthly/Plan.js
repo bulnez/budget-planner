@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { errorNotification, successNotification } from "../../Common/Common";
 import styles from "../../Styles/Plan.module.css";
-import Button from "../../UI/Button";
+import Button from "../../UI/UIs/Button";
 import { AiTwotoneEdit } from "react-icons/ai";
 
 const Plan = ({ month, disabled, data, setData, balance }) => {
